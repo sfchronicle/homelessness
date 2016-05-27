@@ -1,0 +1,42 @@
+@import "sfchronicle";
+@import "fonts";
+
+@block-graphics: "AntennaExtraLight";
+@med-graphics: "AntennaRegular";
+@bold-graphics: "AntennaMedium";
+@body: "FarnhamText";
+@body-bold: "FarnhamTextBold";
+@title: "FarnhamDisplayLight";
+@banner: "DispatchLight";
+
+@red: lighten(#66101F,50%);//lighten(#DE8067,30%);//#E6A8A8;
+@gray-blue: #6C85A5;
+@dark-gray: #696969;
+@light-gray: #B2B2B2;
+
+@share-gray: lighten(#4F5C70,10%);
+@back-gray: lighten(#6C85A5,30%);
+
+leaflet-map:not([ready]) {
+  display: none;
+}
+leaflet-map {
+  width: 700px;
+  height: 700px;
+}
+
+div.leaflet-popup-content{
+  margin: 10px 5px;
+  width:auto;
+  max-width:240px;
+  font-family: @df-sans;
+}
+
+div.leaflet-popup-content-wrapper {
+  border-radius:3px;
+  max-width:240px;
+  box-shadow: 0 1px 14px rgba(0,0,0,0.30);
+  // text-align:center;
+  padding-left:10px;
+  padding-right:10px;
+}
