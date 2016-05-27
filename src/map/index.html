@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= json.project.title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <%= t.include("partials/_head.html") %>
+  </head>
+  <body>
+
+    <responsive-child class="map-container">
+      <div class="outmost">
+
+        <div class="aspect-ratio-outer">
+          <div class="aspect-ratio-inner">
+
+            <leaflet-map zoom=10 id="map">
+              <tile-layer layer="cartoPositron"></tile-layer>
+            </leaflet-map>
+
+          </div>
+        </div>
+
+      </div>
+    </responsive-child>
+
+    <script>
+      var callsData = <%= JSON.stringify(csv.EncampmentCalls) %>;
+      console.log(callsData);
+    </script>
+
+    <script src="../app.js" async></script>
+    <%= t.include("partials/_foot.html") %>
+    <%= t.include("partials/_helloSFC.html") %>
+  </body>
+</html>

@@ -19,8 +19,6 @@ map.keyboard.disable();
 
 map.setView(new L.LatLng(37.77, -122.41), 12);
 map.scrollWheelZoom.disable();
-// L.control.zoom("false");
-// L.control.pan("false");
 
 /* Initialize the SVG layer */
 map._initPathRoot()
