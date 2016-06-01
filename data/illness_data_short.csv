@@ -1,0 +1,43 @@
+illness,percent,group,group_short
+emergency services,0.74,all homeless,all homeless
+tri-morbidity,0.30,all homeless,all homeless
+alcohol abuse,0.39,all homeless,all homeless
+drug abuse,0.49,all homeless,all homeless
+depression,0.45,all homeless,all homeless
+psychoses,0.30,all homeless,all homeless
+jail history,0.23,all homeless,all homeless
+emergency services,0.78,long-term homeless,long-term homeless
+tri-morbidity,0.52,long-term homeless,long-term homeless
+alcohol abuse,0.61,long-term homeless,long-term homeless
+drug abuse,0.75,long-term homeless,long-term homeless
+depression,0.63,long-term homeless,long-term homeless
+psychoses,0.47,long-term homeless,long-term homeless
+jail history,0.27,long-term homeless,long-term homeless
+emergency services,1.00,top 1% users of emergency services,top 1% homeless
+tri-morbidity,0.64,top 1% users of emergency services,top 1% homeless
+alcohol abuse,0.73,top 1% users of emergency services,top 1% homeless
+drug abuse,0.73,top 1% users of emergency services,top 1% homeless
+depression,0.71,top 1% users of emergency services,top 1% homeless
+psychoses,0.55,top 1% users of emergency services,top 1% homeless
+jail history,0.28,top 1% users of emergency services,top 1% homeless
+emergency services,1.00,top 2-5% users of emergency services,top 2-5% homeless
+tri-morbidity,0.53,top 2-5% users of emergency services,top 2-5% homeless
+alcohol abuse,0.64,top 2-5% users of emergency services,top 2-5% homeless
+drug abuse,0.69,top 2-5% users of emergency services,top 2-5% homeless
+depression,0.65,top 2-5% users of emergency services,top 2-5% homeless
+psychoses,0.48,top 2-5% users of emergency services,top 2-5% homeless
+jail history,0.31,top 2-5% users of emergency services,top 2-5% homeless
+emergency services,0.68,elderly,elderly homeless
+tri-morbidity,0.32,elderly,elderly homeless
+alcohol abuse,0.43,elderly,elderly homeless
+drug abuse,0.41,elderly,elderly homeless
+depression,0.44,elderly,elderly homeless
+psychoses,0.29,elderly,elderly homeless
+jail history,0.09,elderly,elderly homeless
+emergency services,0.74,women,homeless women
+tri-morbidity,0.34,women,homeless women
+alcohol abuse,0.34,women,homeless women
+drug abuse,0.48,women,homeless women
+depression,0.56,women,homeless women
+psychoses,0.34,women,homeless women
+jail history,0.16,women,homeless women

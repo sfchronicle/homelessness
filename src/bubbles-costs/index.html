@@ -12,13 +12,54 @@
 
     <responsive-child class="bubbles-costs-container">
 
-      <div class="title">Costs of homelessness support</div>
+      <div class="outer">
+
+        <div class="hed">
+          Cost to the city of SF populations for
+          <div class="info"></div>
+        </div>
+
+        <div class="chart">
+
+          <div class="dropdown">
+            Choose an emergency care cost:
+            <select id="select">
+              <option selected="selected" disabled="disabled">--</option>
+              <option value=0 >Emergency services (total)</option>
+              <option value=1 >Emergency services (average)</option>
+              <option value=2 >Medical emergency services (average)</option>
+              <option value=3 >Mental health services (average)</option>
+              <option value=4 >Substance abuse services (average)</option>
+            </select>
+
+            <div class="controls">
+              <div class="start selected"><i class="fa fa-play"></i></div>
+              <div class="pause"><i class="fa fa-pause"></i></div>
+            </div>
+          </div>
+
+          <div class="bubbles">
+            <div class="tooltip"></div>
+          </div>
+
+          <div class="note">Hover over or click on a bubble for more information.</div>
+        </div>
+
+        <div class="credit">
+          <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
+          <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
+        </div>
+        <div class="source">
+          <em>Source: <a href="https://data.sfgov.org/City-Infrastructure/Case-Data-from-San-Francisco-311-SF311-/vw6y-z8j6" target="_blank">311 data</a> is recorded by the city of San Francisco.</em>
+        </div>
+
+    </div>
 
     </responsive-child>
 
     <script>
-      var callsData = <%= JSON.stringify(csv.EncampmentCalls) %>;
-      console.log(callsData);
+      var costsData = <%= JSON.stringify(csv.costs_data_short) %>;
+      console.log(costsData);
     </script>
 
     <script src="../costs.js" async></script>

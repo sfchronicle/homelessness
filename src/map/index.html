@@ -11,24 +11,63 @@
   <body>
 
     <responsive-child class="map-container">
-      <div class="outmost">
+      <div class="outer">
+
+        <div class="hed">Complaints about the homeless are rising in SF</div>
+        <div class="chatter">Residents in SF can register complaints about the homeless through 311, and such reports have been proliferating at an extremely high rate. Police, on the other hand, have been issuing standard numbers of citations.</div>
+
+        <div class="map-options" id="mapoptions">
+          <div class="map311 selected" id="map311">311 complaints</div>
+          <div class="map911" id="map911">Police citations</div>
+        </div>
+
+        <div class="display-year"></div>
+        <div class="display-info info311 selected" id="map311-info">Complaint data is displayed for the last three calendar years, beginning in January and ending in December of each year.</div>
+        <div class="display-info info911" id="map911-info">Police citations are displayed for three 12-month periods beginning and ending in March, starting in March 2013. Police dispatches are much higher than police citations and those numbers are denoted on the bar chart below.</div>
 
         <div class="aspect-ratio-outer">
           <div class="aspect-ratio-inner">
 
-            <leaflet-map zoom=10 id="map">
+            <leaflet-map zoom=12 id="map">
               <tile-layer layer="cartoPositron"></tile-layer>
             </leaflet-map>
 
           </div>
         </div>
 
+        <div class="header311 active">
+          <div class="hed barhed">Homeless complaints are a growing proportion of 311 complaints</div>
+          <div class="chatter">San Francisco residents have been submitting increasing numbers of 311 complaints in the last 4 years. Data for 2016 is not complete, yet it already eclipses previous years. Homeless complaints have been a growing proportion of these complaints, reflecting the public's increasing frustration with the homeless population.</div>
+        </div>
+        <div class="header911">
+          <div class="hed barhed">Police dispatches are increasing</div>
+          <div class="chatter">Police are being dispatched more and more for homeless-related and sit-lie complaints. A small proportion of these responses result in citations or arrests, and these numbers have remained relatively constant over the last three years.</div>
+          <div class="legend-container">
+            <div class="legend-element"><div class="dispatched919 swatch"></div><div class="key">Dispatched sit-lie calls</div></div>
+            <div class="legend-element"><div class="dispatched915 swatch"></div><div class="key">Dispatched homeless-related calls</div></div>
+            <div class="legend-element"><div class="cite919 swatch"></div><div class="key">Sit-lie citations and arrests</div></div>
+            <div class="legend-element"><div class="cite915 swatch"></div><div class="key">Homeless-related citations and arrests</div></div>
+          </div>
+        </div>
+        <div class="bar-chart" id="bar-chart"></div>
+
+        <div class="credit">
+          <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
+          <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
+        </div>
+        <div class="source">
+          <em>Source: <a href="https://data.sfgov.org/City-Infrastructure/Case-Data-from-San-Francisco-311-SF311-/vw6y-z8j6" target="_blank">311 data</a> is recorded by the city of San Francisco.</em>
+        </div>
+
       </div>
+
     </responsive-child>
 
     <script>
-      var callsData = <%= JSON.stringify(csv.EncampmentCalls) %>;
-      console.log(callsData);
+      var calls311Data = <%= JSON.stringify(csv.EncampmentCalls) %>;
+      var calls911Data = <%= JSON.stringify(csv.Data911_map) %>;
+      var barchart311Data = <%= JSON.stringify(csv.Data311_barchart) %>;
+      var barchart911Data = <%= JSON.stringify(csv.Data911_barchart) %>;
     </script>
 
     <script src="../app.js" async></script>

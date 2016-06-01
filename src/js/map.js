@@ -1,9 +1,18 @@
-// var $ = require("jquery");
+var $ = require("jquery");
 
 //load our custom elements
 require("component-leaflet-map");
 // require("component-responsive-frame");
 var d3 = require('d3');
+
+// setting sizes of interactive features
+var bar_spacing = 0.2;
+var margin = {
+  top: 15,
+  right: 15,
+  bottom: 25,
+  left: 40
+};
 
 //get access to Leaflet and the map
 var element = document.querySelector("leaflet-map");
@@ -17,7 +26,7 @@ map.doubleClickZoom.disable();
 map.scrollWheelZoom.disable();
 map.keyboard.disable();
 
-map.setView(new L.LatLng(37.77, -122.41), 12);
+map.setView(new L.LatLng(37.77, -122.44), 13);
 map.scrollWheelZoom.disable();
 
 /* Initialize the SVG layer */
@@ -30,14 +39,20 @@ var svg = d3.select("#map").select("svg"),
 g = svg.append("g");
 
 /* Add a LatLng object to each item in the dataset */
-callsData.forEach(function(d) {
+calls311Data.forEach(function(d) {
 		d.LatLng = new L.LatLng(d.Lat,
 								d.Long)
 });
 
+calls911Data.forEach(function(d) {
+		d.LatLng = new L.LatLng(d.Lat,
+								d.Long)
+});
+
+var callsData = calls311Data;
 
 // draw bubbles
-var drawMap = function(selected_year) {
+var drawMap = function(selected_year,callsData) {
 
 	d3.select("svg").selectAll("circle").remove();
 	var svg = d3.select("#map").select("svg"),
@@ -46,17 +61,31 @@ var drawMap = function(selected_year) {
   // transition time
   var duration = 700;
 
-	var yearData = callsData.filter(function(d) {
-		return d.Year == selected_year
-	});
+	if (toggle == "311") {
+		var yearData = callsData.filter(function(d) {
+			return d.Year == selected_year
+		});
+	} else {
+		var yearData = callsData.filter(function(d) {
+			return d.TIME_PERIOD == selected_year
+		});
+	}
 
 	var feature = g.selectAll("circle")
 		.data(yearData)
 		.enter().append("circle")
 		// .style("stroke", "black")
-		.style("opacity", .2)
-		.style("fill", "red")
-		.attr("r", 3);
+		.style("opacity", .5)
+		.style("fill", function(d) {
+			if (d.CALL_TYPE == "915") {
+				return "#D13D59"
+			} else if (d.CALL_TYPE == "919") {
+				return "#6C85A5"
+			} else {
+				return "#EB8F6A"
+			}
+		})
+		.attr("r", 3.5);
 
 	map.on("viewreset", update);
 	update();
@@ -73,18 +102,284 @@ var drawMap = function(selected_year) {
 
 }
 
+// fills in HTML for year as years toggle
+var updateInfo = function(year) {
+	if (toggle == "311") {
+  	document.querySelector(".display-year").innerHTML = `<strong>${year}</strong>`;
+	} else {
+		document.querySelector(".display-year").innerHTML = `<strong>${period_list[year-1]}</strong>`;
+	}
+};
+
 // drawMap("2015");
 
 
 var years = [2013,2014,2015,2016];
+var periods = [1,2,3];
+var period_list = ["March 2013 - March 2014","March 2014 - March 2015","March 2015 - March 2016"]
 var i = 0;
+var toggle = "311";
 
 var loop = null;
 var tick = function() {
-  drawMap(years[i]);
-  i = (i + 1) % years.length;
-	console.log(i);
+	if (toggle == "311") {
+	  drawMap(years[i],callsData);
+		updateInfo(years[i]);
+	  i = (i + 1) % years.length;
+	} else {
+		drawMap(periods[i],callsData);
+		updateInfo(periods[i]);
+	  i = (i + 1) % periods.length;
+	}
   loop = setTimeout(tick, i == 0 ? 1700 : 1000);
 };
 
 tick();
+
+$("#map311").click(function() {
+	$("#map311").addClass("selected");
+	$("#map311-info").addClass("selected");
+	$("#map911").removeClass("selected");
+	$("#map911-info").removeClass("selected");
+	$(".header311").addClass("active");
+	$(".header911").removeClass("active");
+	callsData = calls311Data;
+	toggle = "311";
+	console.log("we switched to 311");
+	clearTimeout(loop);
+	i = 0;
+	tick();
+});
+
+$("#map911").click(function() {
+	$("#map311").removeClass("selected");
+	$("#map311-info").removeClass("selected");
+	$("#map911").addClass("selected");
+	$("#map911-info").addClass("selected");
+	$(".header311").removeClass("active");
+	$(".header911").addClass("active");
+	callsData = calls911Data;
+	toggle = "911";
+	console.log("we switched to 911");
+	console.log(calls911Data);
+	looping = false;
+	clearTimeout(loop);
+	i = 0;
+	tick();
+});
+
+// clustered bar graph ----------------------------------------------------------
+
+barchart();
+
+$("#mapoptions").click ( function() {
+	barchart();
+});
+
+function barchart() {
+	d3.select("#bar-chart").select("svg").remove();
+
+	if (toggle == "311") {
+		var barData = barchart311Data;
+		console.log(barData);
+	} else if (toggle == "911") {
+		var barData = barchart911Data;
+		console.log(barData);
+	}
+
+	// show tooltip
+	var bar_tooltip = d3.select(".bar-chart")
+			.append("div")
+			.attr("class","bar_tooltip")
+			.style("position", "absolute")
+			.style("z-index", "10")
+			.style("visibility", "hidden")
+
+	var margin = {
+		top: 15,
+		right: 15,
+		bottom: 25,
+		left: 55
+	};
+	if (screen.width > 768) {
+		var width = 500 - margin.left - margin.right;
+		var height = 400 - margin.top - margin.bottom;
+	} else if (screen.width <= 768 && screen.width > 480) {
+		var width = 480 - margin.left - margin.right;
+		var height = 300 - margin.top - margin.bottom;
+	} else if (screen.width <= 480) {
+		var margin = {
+			top: 15,
+			right: 15,
+			bottom: 25,
+			left: 55
+		};
+		var width = 310 - margin.left - margin.right;
+		var height = 220 - margin.top - margin.bottom;
+	}
+
+	// x-axis scale
+	var x0 = d3.scale.ordinal()
+			.rangeRoundBands([0, width], bar_spacing);
+	var x1 = d3.scale.ordinal()
+
+	// y-axis scale
+	var y = d3.scale.linear()
+			.rangeRound([height, 0]);
+
+	// color bands
+	if (toggle == "311") {
+		var color = d3.scale.ordinal()
+				.range(["#EB8F6A"]);
+	} else {
+		var color = d3.scale.ordinal()
+				.range(["#395271", "#9E0A26", "#6C85A5", "#D13D59"]);
+	}
+
+	// use x-axis scale to set x-axis
+	if (screen.width <= 480) {
+		var xAxis = d3.svg.axis()
+				.scale(x0)
+				.orient("bottom")
+				.tickFormat(function(d) {
+					if ((d & 1) == 0) {
+						return '';
+					} else {
+						return d;
+					}
+				});
+				// .tickValues([2005, ,2007, ,2009, ,2011, ,2013, ]);
+	} else {
+		var xAxis = d3.svg.axis()
+				.scale(x0)
+				.orient("bottom");
+	}
+
+	// use y-axis scale to set y-axis
+	var yAxis = d3.svg.axis()
+			.scale(y)
+			.orient("left")
+			.tickFormat(d3.format(".2s"));
+
+	// create SVG container for chart components
+	var svg = d3.select(".bar-chart").append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	// map columns to colors
+	var yearMap = d3.keys(barData[0]).filter(function (key) {
+			if (key != "types") {
+				return key !== "time_period";
+			}
+	});
+
+	console.log(yearMap);
+
+	if (!barData[0].types) {
+		barData.forEach(function (d) {
+				var y0 = 0;
+				d.types = yearMap.map(function (name) {
+						return {
+								name: name,
+								value: +d[name]
+						};
+				});
+		});
+	};
+
+	// x domain is set of years
+	x0.domain(barData.map(function (d) {
+			return d.time_period;
+	}));
+
+	// x domain number 2
+	x1.domain(yearMap).rangeRoundBands([0,x0.rangeBand()]);
+
+	// y domain is scaled by highest total
+	y.domain([0, d3.max(barData, function (d) {
+			return d3.max(d.types, function(d) {
+				return d.value;
+			});
+	})]);
+
+	if (toggle == "311") {
+		svg.append("text")
+				.attr("class", "y label")
+				.attr("text-anchor", "end")
+				.attr("y", 2)
+				.attr("dy", -45)
+				.attr("x", -(height)/3)
+				.attr("transform", "rotate(-90)")
+				.text("Proportion per 1000 calls");
+	} else {
+		svg.append("text")
+				.attr("class", "y label")
+				.attr("text-anchor", "end")
+				.attr("y", 2)
+				.attr("dy", -45)
+				.attr("x", -(height)/3)
+				.attr("transform", "rotate(-90)")
+				.text("Count");
+	}
+
+	svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis);
+
+	svg.append("g")
+			.attr("class", "y axis")
+			.call(yAxis);
+
+	// generate rectangles for all the data values
+	var year = svg.selectAll(".year")
+			.data(barData)
+			.enter().append("g")
+			.attr("class", "g")
+			.attr("transform", function (d) {
+				return "translate(" + x0(d.time_period) + ",0)";
+			})
+			// .on("mouseover", function(d) {
+			// 		bar_tooltip.html(`
+			// 				<div>Year: <b>${d.year}</b></div>
+			// 				<div>Average teachers salary: <b>$${d.adj_teacher}</b></div>
+			// 				<div>Mid-career teacher salary: <b>$${d.adj_step_10}</b></div>
+			// 				<div>Median household income: <b>$${d.adj_median}</b></div>
+			// 		`);
+			// 		bar_tooltip.style("visibility", "visible");
+			// })
+			// .on("mousemove", function() {
+			// 	if (screen.width <= 480) {
+			// 		return bar_tooltip
+			// 			.style("top", (d3.event.pageY+20)+"px")
+			// 			.style("left",10+"px");
+			// 	} else {
+			// 		return bar_tooltip
+			// 			.style("top", (d3.event.pageY+20)+"px")
+			// 			.style("left",(d3.event.pageX-80)+"px");
+			// 	}
+			// })
+			// .on("mouseout", function(){return bar_tooltip.style("visibility", "hidden");});
+
+	year.selectAll("rect")
+			.data(function (d) {
+				return d.types;
+			})
+			.enter().append("rect")
+			.attr("width", x1.rangeBand())
+			.attr("x", function (d) {
+				return x1(d.name);
+			})
+			.attr("y", function (d) {
+				return y(d.value);
+			})
+			.attr("height", function (d) {
+				return height - y(d.value);
+			})
+			.style("fill", function (d) {
+				return color(d.name);
+			});
+
+	};
