@@ -14,6 +14,7 @@
 @dark-gray: #696969;
 @light-gray: #B2B2B2;
 @black: #191919;
+@dark-blue: #395272;
 
 @share-gray: lighten(#4F5C70,10%);
 @back-gray: lighten(#6C85A5,30%);
@@ -71,10 +72,19 @@
   @media @tablet {
     padding: 10px;
   }
+  @media @tablet {
+    padding: 5px;
+  }
 }
 .outer {
   max-width: 900px;
   margin: 30px auto;
+  @media @tablet {
+    margin: 20px;
+  }
+  @media @mobile {
+    margin: 10px;
+  }
 }
 .source, .credit {
   padding-top: 10px;
@@ -110,6 +120,9 @@ text {
   text {
     font-size: 14px;
     font-family: @block-graphics;
+    @media @mobile {
+      font-size: 12px;
+    }
   }
 
   .x.axis line,
@@ -147,6 +160,9 @@ text {
   font-size: 25px;
   margin: auto;
   text-align:center;
+  @media @mobile {
+    font-size: 20px;
+  }
 }
 
 .map-options {
@@ -155,6 +171,9 @@ text {
     font-size: 15px;
     display: inline-block;
     width: 200px;
+    @media @mobile {
+      width: 140px;
+    }
     padding: 5px;
     font-family: @block-graphics;
     border: 1px black solid;
@@ -164,6 +183,11 @@ text {
       background: lighten(@gray-blue,10%);
     }
   }
+  // @media @mobile {
+  //   .map311 {
+  //     margin-bottom: 3px;
+  //   }
+  // }
   text-align: center;
   margin-bottom: 10px;
 }
@@ -174,6 +198,13 @@ leaflet-map:not([ready]) {
 leaflet-map {
   width: 900px;
   height: 600px;
+  @media @tablet {
+    width: 100%;
+  }
+  @media @mobile {
+    width: 300px;
+    height: 250px;
+  }
 }
 
 div.leaflet-popup-content{
@@ -245,26 +276,26 @@ div.leaflet-control-zoom {
   padding-top: 10px;
   text-align: center;
   display: block;
-  padding-left: 20px;
+  // padding-left: 20px;
 }
 .start, .pause {
   border-radius: 7px;
   display: inline-block;
   font-size: 14px;
   cursor: pointer;
-  color: @dark-gray;
+  color: @dark-blue;
   background: @light-gray;
   padding: 5px 10px 4px 10px;
 
   &:hover {
-    background: @dark-gray;
+    background: @dark-blue;
     color: white;
   }
 
   &.selected {
     color: @black;
     cursor: default;
-    background: @dark-gray;
+    background: @dark-blue;
   }
 }
 
@@ -297,6 +328,8 @@ div.leaflet-control-zoom {
   font-family: @block-graphics;
   // margin-top: -30px;
   @media @mobile {
+    width: 300px;
+    font-size: 12px;
     margin-top: -10px;
   }
   border: 1px black solid;

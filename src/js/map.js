@@ -26,7 +26,11 @@ map.doubleClickZoom.disable();
 map.scrollWheelZoom.disable();
 map.keyboard.disable();
 
-map.setView(new L.LatLng(37.77, -122.44), 13);
+if (screen.width <= 480) {
+  map.setView(new L.LatLng(37.75, -122.43), 11);
+} else {
+  map.setView(new L.LatLng(37.77, -122.44), 13);
+}
 map.scrollWheelZoom.disable();
 
 /* Initialize the SVG layer */
@@ -71,21 +75,40 @@ var drawMap = function(selected_year,callsData) {
 		});
 	}
 
-	var feature = g.selectAll("circle")
-		.data(yearData)
-		.enter().append("circle")
-		// .style("stroke", "black")
-		.style("opacity", .5)
-		.style("fill", function(d) {
-			if (d.CALL_TYPE == "915") {
-				return "#D13D59"
-			} else if (d.CALL_TYPE == "919") {
-				return "#6C85A5"
-			} else {
-				return "#EB8F6A"
-			}
-		})
-		.attr("r", 3.5);
+
+  if (screen.width <= 480) {
+  	var feature = g.selectAll("circle")
+  		.data(yearData)
+  		.enter().append("circle")
+  		// .style("stroke", "black")
+  		.style("opacity", .5)
+  		.style("fill", function(d) {
+  			if (d.CALL_TYPE == "915") {
+  				return "#D13D59"
+  			} else if (d.CALL_TYPE == "919") {
+  				return "#6C85A5"
+  			} else {
+  				return "#EB8F6A"
+  			}
+  		})
+  		.attr("r", 2);
+  } else {
+    var feature = g.selectAll("circle")
+  		.data(yearData)
+  		.enter().append("circle")
+  		// .style("stroke", "black")
+  		.style("opacity", .5)
+  		.style("fill", function(d) {
+  			if (d.CALL_TYPE == "915") {
+  				return "#D13D59"
+  			} else if (d.CALL_TYPE == "919") {
+  				return "#6C85A5"
+  			} else {
+  				return "#EB8F6A"
+  			}
+  		})
+  		.attr("r", 3.5);
+  }
 
 	map.on("viewreset", update);
 	update();
@@ -111,12 +134,10 @@ var updateInfo = function(year) {
 	}
 };
 
-// drawMap("2015");
-
-
 var years = [2013,2014,2015,2016];
 var periods = [1,2,3];
-var period_list = ["March 2013 - March 2014","March 2014 - March 2015","March 2015 - March 2016"]
+var period_list = ["March 2013 - March 2014","March 2014 - March 2015","March 2015 - March 2016"];
+var short_period_list = ["3/13-3/14","3/14-3/15","3/15-3/16"];
 var i = 0;
 var toggle = "311";
 
@@ -145,7 +166,6 @@ $("#map311").click(function() {
 	$(".header911").removeClass("active");
 	callsData = calls311Data;
 	toggle = "311";
-	console.log("we switched to 311");
 	clearTimeout(loop);
 	i = 0;
 	tick();
@@ -160,8 +180,6 @@ $("#map911").click(function() {
 	$(".header911").addClass("active");
 	callsData = calls911Data;
 	toggle = "911";
-	console.log("we switched to 911");
-	console.log(calls911Data);
 	looping = false;
 	clearTimeout(loop);
 	i = 0;
@@ -174,17 +192,33 @@ barchart();
 
 $("#mapoptions").click ( function() {
 	barchart();
+  document.querySelector(".start").classList.add("selected");
+  document.querySelector(".pause").classList.remove("selected");
+  looping = true;
 });
+
+document.querySelector(".start").addEventListener("click", function(e) {
+  if (looping) { return }
+  document.querySelector(".start").classList.add("selected");
+  document.querySelector(".pause").classList.remove("selected");
+  looping = true;
+  tick();
+})
+document.querySelector(".pause").addEventListener("click", function(e) {
+  if (!looping) { return }
+  document.querySelector(".start").classList.remove("selected");
+  document.querySelector(".pause").classList.add("selected");
+  looping = false;
+  clearTimeout(loop);
+})
 
 function barchart() {
 	d3.select("#bar-chart").select("svg").remove();
 
 	if (toggle == "311") {
 		var barData = barchart311Data;
-		console.log(barData);
 	} else if (toggle == "911") {
 		var barData = barchart911Data;
-		console.log(barData);
 	}
 
 	// show tooltip
@@ -237,23 +271,24 @@ function barchart() {
 	}
 
 	// use x-axis scale to set x-axis
-	if (screen.width <= 480) {
-		var xAxis = d3.svg.axis()
-				.scale(x0)
-				.orient("bottom")
-				.tickFormat(function(d) {
-					if ((d & 1) == 0) {
-						return '';
-					} else {
-						return d;
-					}
-				});
-				// .tickValues([2005, ,2007, ,2009, ,2011, ,2013, ]);
-	} else {
-		var xAxis = d3.svg.axis()
-				.scale(x0)
-				.orient("bottom");
-	}
+  // use x-axis scale to set x-axis
+  if ((screen.width <= 480) && (toggle == "911")) {
+    var xAxis = d3.svg.axis()
+        .scale(x0)
+        .orient("bottom")
+        .tickFormat(function(d) {
+          console.log(d.slice(-1));
+          if ((d.slice(-1) & 1) != 0) {
+            return '';
+          } else {
+            return d;
+          }
+        });
+  } else {
+    var xAxis = d3.svg.axis()
+        .scale(x0)
+        .orient("bottom");
+  }
 
 	// use y-axis scale to set y-axis
 	var yAxis = d3.svg.axis()
@@ -274,8 +309,6 @@ function barchart() {
 				return key !== "time_period";
 			}
 	});
-
-	console.log(yearMap);
 
 	if (!barData[0].types) {
 		barData.forEach(function (d) {
@@ -305,14 +338,25 @@ function barchart() {
 	})]);
 
 	if (toggle == "311") {
-		svg.append("text")
-				.attr("class", "y label")
-				.attr("text-anchor", "end")
-				.attr("y", 2)
-				.attr("dy", -45)
-				.attr("x", -(height)/3)
-				.attr("transform", "rotate(-90)")
-				.text("Proportion per 1000 calls");
+    if (screen.width <= 480) {
+  		svg.append("text")
+  				.attr("class", "y label")
+  				.attr("text-anchor", "end")
+  				.attr("y", 2)
+  				.attr("dy", -45)
+  				.attr("x", -5)
+  				.attr("transform", "rotate(-90)")
+  				.text("Proportion per 1000 calls");
+      } else {
+        svg.append("text")
+            .attr("class", "y label")
+            .attr("text-anchor", "end")
+            .attr("y", 2)
+            .attr("dy", -45)
+            .attr("x", -(height)/3)
+            .attr("transform", "rotate(-90)")
+            .text("Proportion per 1000 calls");
+      }
 	} else {
 		svg.append("text")
 				.attr("class", "y label")
