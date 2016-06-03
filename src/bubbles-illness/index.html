@@ -15,20 +15,23 @@
       <div class="outer">
 
       <div class="hed">
-        SF homeless populations suffering from
+        What is the biggest health challenge facing
         <div class="info"></div>
       </div>
 
       <div class="chart">
 
         <div class="dropdown">
-          Choose a health and social issue:
+          Choose a homeless population:
           <select name="select">
             <option selected="selected" disabled="disabled">--</option>
-            <option value=0>Medical high risk</option>
-            <option value=0>Mental health high risk</option>
-            <option value=0>Substance abuse high risk</option>
-            <option value=0>Tri-morbidity</option>
+            <option value=0>All homeless</option>
+            <option value=1>Long-term homeless</option>
+            <option value=2>Top 1%</option>
+            <option value=3>Top 2-5%</option>
+            <option value=4>Elderly</option>
+            <option value=5>Women</option>
+            <option value=6>Transitional-age youth</option>
           </select>
 
           <div class="controls">
@@ -57,8 +60,7 @@
     </responsive-child>
 
     <script>
-      var illnessData = <%= JSON.stringify(csv.illness_data_short) %>;
-      console.log(illnessData);
+      var illnessData = <%= JSON.stringify(csv.illness_data_short_v2) %>;
     </script>
 
     <script src="../illness.js" async></script>

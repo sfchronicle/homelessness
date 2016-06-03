@@ -54,6 +54,7 @@ calls911Data.forEach(function(d) {
 });
 
 var callsData = calls311Data;
+var toggle = "311";
 
 // draw bubbles
 var drawMap = function(selected_year,callsData) {
@@ -139,7 +140,6 @@ var periods = [1,2,3];
 var period_list = ["March 2013 - March 2014","March 2014 - March 2015","March 2015 - March 2016"];
 var short_period_list = ["3/13-3/14","3/14-3/15","3/15-3/16"];
 var i = 0;
-var toggle = "311";
 
 var loop = null;
 var tick = function() {
@@ -164,6 +164,7 @@ $("#map311").click(function() {
 	$("#map911-info").removeClass("selected");
 	$(".header311").addClass("active");
 	$(".header911").removeClass("active");
+  callsData = null;
 	callsData = calls311Data;
 	toggle = "311";
 	clearTimeout(loop);
@@ -178,6 +179,7 @@ $("#map911").click(function() {
 	$("#map911-info").addClass("selected");
 	$(".header311").removeClass("active");
 	$(".header911").addClass("active");
+  callsData = null;
 	callsData = calls911Data;
 	toggle = "911";
 	looping = false;
@@ -185,6 +187,15 @@ $("#map911").click(function() {
 	i = 0;
 	tick();
 });
+
+setTimeout( function(){
+    // Do something after 1 second
+    document.querySelector(".start").classList.remove("selected");
+    document.querySelector(".pause").classList.add("selected");
+    looping = false;
+    clearTimeout(loop);
+    console.log("we been running for long enough!")
+  }  , 60000 );
 
 // clustered bar graph ----------------------------------------------------------
 
@@ -255,7 +266,7 @@ function barchart() {
 	// x-axis scale
 	var x0 = d3.scale.ordinal()
 			.rangeRoundBands([0, width], bar_spacing);
-	var x1 = d3.scale.ordinal()
+	var x1 = d3.scale.ordinal();
 
 	// y-axis scale
 	var y = d3.scale.linear()
@@ -267,7 +278,7 @@ function barchart() {
 				.range(["#EB8F6A"]);
 	} else {
 		var color = d3.scale.ordinal()
-				.range(["#395271", "#9E0A26", "#6C85A5", "#D13D59"]);
+				.range(["#395271", "#6C85A5", "#9E0A26", "#D13D59"]);
 	}
 
 	// use x-axis scale to set x-axis
@@ -310,32 +321,85 @@ function barchart() {
 			}
 	});
 
-	if (!barData[0].types) {
-		barData.forEach(function (d) {
-				var y0 = 0;
-				d.types = yearMap.map(function (name) {
-						return {
-								name: name,
-								value: +d[name]
-						};
-				});
-		});
-	};
+  if (toggle == "911") {
+    console.log(barData);
+    var yBegin;
+    var innerColumns = {
+      "column1" : ["dispatched_sit_lie_calls", "sit_lie_citations_and_arrests"],
+      "column2" : ["dispatched_homeless_related_police_calls","homeless_related_citations_and_arrests"]
+    }
 
-	// x domain is set of years
-	x0.domain(barData.map(function (d) {
-			return d.time_period;
-	}));
+    if (!barData[0].columnDetails) {
+      barData.forEach(function (d) {
+        var yColumn = new Array();
+        d.columnDetails = yearMap.map(function(name) {
+          for (var ic in innerColumns) {
+            if ($.inArray(name,innerColumns[ic]) >= 0) {
+              if (!yColumn[ic]){
+                yColumn[ic] = 0;
+              }
+              yBegin = yColumn[ic];
+              yColumn[ic] += +d[name];
+              return {
+                name: name,
+                column: ic,
+                yBegin: yBegin,
+                yEnd: +d[name]+yBegin,
+              }
+            }
+          }
+        });
+        d.total = d3.max(d.columnDetails, function(d) {
+          if (d) {
+            return d.yEnd;
+          }
+        });
+      });
+    }
 
-	// x domain number 2
-	x1.domain(yearMap).rangeRoundBands([0,x0.rangeBand()]);
+    // x domain is set of years
+    x0.domain(barData.map(function (d) {
+        return d.time_period;
+    }));
 
-	// y domain is scaled by highest total
-	y.domain([0, d3.max(barData, function (d) {
-			return d3.max(d.types, function(d) {
-				return d.value;
-			});
-	})]);
+    x1.domain(d3.keys(innerColumns)).rangeRoundBands([0, x0.rangeBand()]);
+
+    y.domain([0, d3.max(barData, function(d) {
+     return d.total;
+   })]);
+
+  } else {
+
+    console.log(barData);
+
+  	if (!barData[0].types) {
+  		barData.forEach(function (d) {
+  				var y0 = 0;
+  				d.types = yearMap.map(function (name) {
+  						return {
+  								name: name,
+  								value: +d[name]
+  						};
+  				});
+  		});
+  	};
+
+    // x domain is set of years
+    x0.domain(barData.map(function (d) {
+        return d.time_period;
+    }));
+
+    // x domain number 2
+    x1.domain(yearMap).rangeRoundBands([0,x0.rangeBand()]);
+
+    // y domain is scaled by highest total
+    y.domain([0, d3.max(barData, function (d) {
+        return d3.max(d.types, function(d) {
+          return d.value;
+        });
+    })]);
+
+  }
 
 	if (toggle == "311") {
     if (screen.width <= 480) {
@@ -377,7 +441,7 @@ function barchart() {
 			.attr("class", "y axis")
 			.call(yAxis);
 
-	// generate rectangles for all the data values
+  // generate rectangles for all the data values
 	var year = svg.selectAll(".year")
 			.data(barData)
 			.enter().append("g")
@@ -407,23 +471,46 @@ function barchart() {
 			// })
 			// .on("mouseout", function(){return bar_tooltip.style("visibility", "hidden");});
 
-	year.selectAll("rect")
-			.data(function (d) {
-				return d.types;
-			})
-			.enter().append("rect")
-			.attr("width", x1.rangeBand())
-			.attr("x", function (d) {
-				return x1(d.name);
-			})
-			.attr("y", function (d) {
-				return y(d.value);
-			})
-			.attr("height", function (d) {
-				return height - y(d.value);
-			})
-			.style("fill", function (d) {
-				return color(d.name);
-			});
 
-	};
+  if (toggle == "911") {
+
+   year.selectAll("rect")
+       .data(function(d) { return d.columnDetails; })
+     .enter().append("rect")
+       .attr("width", x1.rangeBand())
+       .attr("x", function(d) {
+         return x1(d.column);
+          })
+       .attr("y", function(d) {
+         return y(d.yEnd);
+       })
+       .attr("height", function(d) {
+         return y(d.yBegin) - y(d.yEnd);
+       })
+       .style("fill", function(d) {
+         return color(d.name);
+       });
+
+  } else {
+
+  	year.selectAll("rect")
+  			.data(function (d) {
+  				return d.types;
+  			})
+  			.enter().append("rect")
+  			.attr("width", x1.rangeBand())
+  			.attr("x", function (d) {
+  				return x1(d.name);
+  			})
+  			.attr("y", function (d) {
+  				return y(d.value);
+  			})
+  			.attr("height", function (d) {
+  				return height - y(d.value);
+  			})
+  			.style("fill", function (d) {
+  				return color(d.name);
+  			});
+
+  	};
+  }
