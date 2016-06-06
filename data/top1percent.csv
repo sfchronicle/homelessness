@@ -1,0 +1,9 @@
+category,illness,percent
+well,No diagnosis,6.8
+sick,Medical only,1.5
+sick,Psych only,3.3
+sick,Substance abuse only,3.3
+sick,Medical / Substance abuse,8.3
+sick,Medical / Psych,4.1
+sick,Psych / Substance abuse,9.2
+sick,Tri-morbidity,63.6

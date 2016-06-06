@@ -32,6 +32,9 @@
 @cite915: #D13D59;
 @proportion: #EB8F6A;
 
+@sick: #493843;
+@notsick: #667A96;
+
 // overall styles --------------------------------------------------------------
 
 .header311 {
@@ -256,21 +259,31 @@ leaflet-map {
   }
 }
 
-.bubbles {
+.chart {
   text-align: center;
-  position: relative;
-  //margin-top: -30px;
+  height: 370px;
 }
-.dropdown {
-  text-align: center;
-  font-size: 15px;
-  margin-top: 5px;
+// .pack, .packall {
+//   display: inline;
+//   float: left;
+//   margin: 20px;
+// }
 
-  select {
-    margin-left: 3px;
-    width: 100px;
-  }
-}
+// .bubbles {
+//   text-align: center;
+//   position: relative;
+//   //margin-top: -30px;
+// }
+// .dropdown {
+//   text-align: center;
+//   font-size: 15px;
+//   margin-top: 5px;
+//
+//   select {
+//     margin-left: 3px;
+//     width: 100px;
+//   }
+// }
 
 .controls {
   padding-top: 10px;
@@ -299,7 +312,7 @@ leaflet-map {
   }
 }
 
-.tooltip {
+.tooltip, .tooltip-all {
   display: none;
   position: absolute;
   background: @df-off-white;
@@ -326,6 +339,10 @@ leaflet-map {
   margin-top: -10px;
   margin-bottom: 15px;
   font-family: @block-graphics;
+  &.bubbles-legend {
+    margin-top: 10px;
+    width: 420px;
+  }
   // margin-top: -30px;
   @media @mobile {
     width: 300px;
@@ -353,6 +370,8 @@ leaflet-map {
     &.cite915 { background: @cite915; }
     &.cite919 { background: @cite919; }
     &.proportion { background: @proportion; }
+    &.sick { background: @sick; }
+    &.notsick { background: @notsick; }
   }
   .key {
     display: inline-block;

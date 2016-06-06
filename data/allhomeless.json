@@ -1,0 +1,23 @@
+{
+  "name": "graph",
+  "children": [
+    {
+      "name": "well",
+      "children": [
+        {"name": "No diagnosis", "percent": 26}
+      ]
+    },
+    {
+      "name": "sick",
+      "children": [
+        {"name": "Medical only", "percent": 4.7},
+        {"name": "Psych only", "percent": 5.9},
+        {"name": "Substance abuse only", "percent": 7.8},
+        {"name": "Medical / Substance abuse", "percent": 8.4},
+        {"name": "Medical / Psych", "percent": 4.7},
+        {"name": "Psych / Substance abuse", "percent": 12.2},
+        {"name": "Tri-morbidity", "percent": 30.3}
+      ]
+    }
+  ]
+}

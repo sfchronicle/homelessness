@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= json.project.title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <%= t.include("partials/_head.html") %>
+  </head>
+  <body>
+
+    <responsive-child class="bubbles-costs-container">
+
+      <div class="outer">
+
+        <div class="hed">
+          Homeless in SF have many health problems, often multiple health problems
+          The top 1% of emergency care users among the homeless have the worst health problems
+        </div>
+
+        <div class="chart">
+
+          <div class="bubbles">
+            <div class="tooltip"></div>
+          </div>
+
+        </div>
+
+        <div class="credit">
+          <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
+          <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
+        </div>
+        <div class="source">
+          <em>Source: <a href="https://data.sfgov.org/City-Infrastructure/Case-Data-from-San-Francisco-311-SF311-/vw6y-z8j6" target="_blank">311 data</a></em>
+        </div>
+
+    </div>
+
+    </responsive-child>
+
+    <script>
+      var costsData = <%= JSON.stringify(csv.costs_data_short) %>;
+      console.log(costsData);
+    </script>
+
+    <script src="../costs_app.js" async></script>
+    <%= t.include("partials/_foot.html") %>
+    <%= t.include("partials/_helloSFC.html") %>
+  </body>
+</html>

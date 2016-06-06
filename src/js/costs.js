@@ -44,7 +44,7 @@ var bubble = d3.layout.pack()
       return -(a.value - b.value);
     }) // sorting from biggest to smallest
     .size([width, height])
-    .padding(2)
+    // .padding(2)
     .value(d => d.number);
 
 // show tooltip
