@@ -15,17 +15,27 @@
       <div class="outer">
 
         <div class="hed">
-          Homeless in SF have many health problems, often multiple health problems
-          The top 1% of emergency care users among the homeless have the worst health problems
+           Urgent and emergent services for the homeless are expensive
         </div>
 
-        <div class="chart">
+        <div class="chatter">
+          The San Franciso Department of Health accrues costs that vary across the different homeless populations. Spending is predominantly for medical care.
+        </div>
 
-          <div class="bubbles">
+        <!-- <div class="chart"> -->
+
+        <div class="legend-container">
+          <div class="legend-element"><div class="medical swatch"></div><div class="key">Medical care costs</div></div>
+          <div class="legend-element"><div class="mental swatch"></div><div class="key">Mental health care costs</div></div>
+          <div class="legend-element"><div class="sa swatch"></div><div class="key">Substance abuse costs</div></div>
+        </div>
+
+
+          <div class="stacked-bar-graph">
             <div class="tooltip"></div>
           </div>
 
-        </div>
+        <!-- </div> -->
 
         <div class="credit">
           <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
@@ -40,7 +50,7 @@
     </responsive-child>
 
     <script>
-      var costsData = <%= JSON.stringify(csv.costs_data_short) %>;
+      var costsData = <%= JSON.stringify(csv.financial_data) %>;
       console.log(costsData);
     </script>
 

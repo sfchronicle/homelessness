@@ -17,14 +17,9 @@
         <div class="hed">
           The homeless in SF have many health problems, often multiple health problems
         </div>
-        <div class="chatter">This is something about the data maybe. Hover over the chart for more information.</div>
-        <div class="legend-container bubbles-legend">
-          <div class="legend-element"><div class="sick swatch"></div><div class="key">Homeless with one or more serious health diagnoses</div></div>
-          <div class="legend-element"><div class="notsick swatch"></div><div class="key">Homeless with no health diagnoses</div></div>
-        </div>
 
         <div class="chart">
-          <div class="bubbles-all">
+          <div class="bubbles-all" id="bubblesAll">
             <div class="tooltip-all"></div>
           </div>
         </div>
@@ -32,13 +27,8 @@
         <div class="hed">
           The top 1% of emergency care users among the homeless have the worst health problems
         </div>
-        <div class="chatter">This is something about the data maybe. Hover over the chart for more information.</div>
-        <div class="legend-container bubbles-legend">
-          <div class="legend-element"><div class="sick swatch"></div><div class="key">Homeless with one or more serious health diagnoses</div></div>
-          <div class="legend-element"><div class="notsick swatch"></div><div class="key">Homeless with no health diagnoses</div></div>
-        </div>
         <div class="chart">
-          <div class="bubbles">
+          <div class="bubbles" id="bubbles">
             <div class="tooltip"></div>
           </div>
         </div>
@@ -59,6 +49,7 @@
       var illnessData1Percent = <%= JSON.stringify(json.top1percent) %>;
       var illnessDataAll = <%= JSON.stringify(json.allhomeless) %>;
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 
     <script src="../illness_app.js" async></script>
     <%= t.include("partials/_foot.html") %>
