@@ -35,9 +35,10 @@
 @sick: #493843;
 @notsick: #667A96;
 
-@medical: #DE8067;
-@mental: #FFCC32;
-@sa: #667A96;
+@medical: lighten(#D13D59,0%);
+@mental: lighten(#FFCC32,0%);
+@sa: lighten(#DE8067,0%);
+@noproblem: lighten(#493843,20%);
 
 // overall styles --------------------------------------------------------------
 
@@ -118,11 +119,14 @@ text {
 
 // bar graph styles ------------------------------------------------------------
 
-.stacked-bar-graph {
+.bar-chart, .stacked-bar-graph {
 
   svg {
     display: block;
     margin: auto;
+    @media @mobile {
+      margin: 0;
+    }
   }
   text {
     font-size: 14px;
@@ -236,6 +240,41 @@ leaflet-map {
 
 // bubbles styles --------------------------------------------------------------
 
+.button-container {
+  text-align: center;
+  font-family: @block-graphics;
+  padding-bottom: 10px;
+  .all, .onepercent {
+    width: 200px;
+    background: @light-gray;
+    display: inline-block;
+    padding: 5px;
+    border: 1px black solid;
+    border-radius: 2px;
+    cursor: pointer;
+    &.selected {
+      background: @dark-gray;
+      color: white;
+    }
+    @media @mobile {
+      width: 46%;
+      font-size: 14px;
+    }
+  }
+}
+
+#bubbles {
+  .label {
+    font-size: 14px;
+    font-family: @bold-graphics;
+    z-index: 300;
+    @media @mobile {
+      font-size: 10px;
+    }
+  }
+  margin: auto;
+}
+
 .info {
   color: white;
   background: @dark-gray;
@@ -265,7 +304,7 @@ leaflet-map {
 
 .chart {
   text-align: center;
-  height: 370px;
+  // height: 370px;
 }
 // .pack, .packall {
 //   display: inline;
@@ -316,6 +355,16 @@ leaflet-map {
   }
 }
 
+.bubblestooltip {
+  background: @df-off-white;
+  font-size: 12px;
+  padding: 5px;
+  border: 1px solid @df-light-gray;
+  border-radius: 5px;
+  white-space: nowrap;
+  font-family: @block-graphics;
+}
+
 .tooltip, .tooltip-all {
   display: none;
   position: absolute;
@@ -345,7 +394,11 @@ leaflet-map {
   font-family: @block-graphics;
   &.bubbles-legend {
     margin-top: 10px;
-    width: 420px;
+    display: none;
+    &.selected {
+      display: block;
+    }
+    // width: 120px;
   }
   // margin-top: -30px;
   @media @mobile {
@@ -377,6 +430,7 @@ leaflet-map {
     &.medical { background: @medical; }
     &.mental { background: @mental; }
     &.sa { background: @sa; }
+    &.noproblem { background: @noproblem; }
   }
   .key {
     display: inline-block;

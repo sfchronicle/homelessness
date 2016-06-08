@@ -1,17 +1,37 @@
 var d3 = require('d3');
 
 var bar_spacing = 0.2;
-var margin = {
-  top: 15,
-  right: 15,
-  bottom: 25,
-  left: 200
-};
 
 // stacked bar graph ----------------------------------------------------------
 
-var width = 600;
-var height = 150;
+if (screen.width > 768) {
+  var width = 600;
+  var height = 200;
+  var margin = {
+    top: 15,
+    right: 15,
+    bottom: 60,
+    left: 150
+  };
+} else if (screen.width <= 768 && screen.width > 480) {
+  var width = 500;
+  var height = 200;
+  var margin = {
+    top: 15,
+    right: 15,
+    bottom: 60,
+    left: 150
+  };
+} else if (screen.width <= 480) {
+  var width = 320;
+  var height = 150;
+  var margin = {
+    top: 15,
+    right: 0,
+    bottom: 60,
+    left: 0
+  };
+}
 
 // x-axis scale
 var y = d3.scale.ordinal()
@@ -23,7 +43,7 @@ var x = d3.scale.linear()
 
 // color bands
 var color = d3.scale.ordinal()
-    .range(["#DE8067", "#FFCC32", "#667A96"]);
+    .range(["#D13D59", "#FFCC32", "#DE8067"]);
 
 // use x-axis scale to set x-axis
 var xAxis = d3.svg.axis()
@@ -32,9 +52,15 @@ var xAxis = d3.svg.axis()
     .tickFormat(d3.format(".2s"));
 
 // use y-axis scale to set y-axis
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
+if (screen.width <= 480) {
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+} else {
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+}
     // .tickFormat(d3.format("s"));
 
 // create SVG container for chart components
@@ -46,14 +72,11 @@ var svg = d3.select(".stacked-bar-graph").append("svg")
 
 // convert strings to numbers
 costsData.forEach(function(d) {
-  console.log(d);
   d.group = d["group"];
   d.medical = +d.medical;
   d.mental = +d.mental;
   d.sa = +d.sa;
 })
-
-console.log(costsData);
 
 // map columns to colors
 color.domain(d3.keys(costsData[0]).filter(function (key) {
@@ -85,7 +108,7 @@ y.domain(costsData.map(function (d) {
 //     .attr("dy", -45)
 //     .attr("x", -(height)/2)
 //     .attr("transform", "rotate(-90)")
-//     .text("Yearly Salary");
+//     .text("Cost in ");
 
 // y domain is scaled by highest total
 x.domain([0, d3.max(costsData, function (d) {
@@ -107,8 +130,6 @@ var group = svg.selectAll(".group")
     .enter().append("g")
     .attr("class", "g")
     .attr("transform", function (d) {
-      console.log(d.name);
-      console.log(y(d.group));
       return "translate(0," + y(d.group) + ")";
     });
 
@@ -127,6 +148,12 @@ group.selectAll("rect")
     .style("fill", function (d) {
         return color(d.name);
     });
+
+svg.append("text")      // text label for the x axis
+        .attr("x", width/2 )
+        .attr("y", height + 45 )
+        .style("text-anchor", "middle")
+        .text("Cost 2014-2015");
 
 //
 // // bubble graph ----------------------------------------------------------------

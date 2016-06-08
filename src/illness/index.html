@@ -15,21 +15,30 @@
       <div class="outer">
 
         <div class="hed">
-          The homeless in SF have many health problems, often multiple health problems
+          The homeless in SF have serious health problems
+        </div>
+        <div class="chatter">Almost every homeless person served by [Insert group] has medical, substance abuse, or psychiatric diagnoses. And most of them suffer from a plurality of these conditions. This is especially true of the homeless population that heavily uses emergency services; they have even more medical problems and are even more likely to have a confluence of problems.</div>
+
+        <div class="button-container">
+          <div class="all selected" id="all">All homeless</div>
+          <div class="onepercent" id="one">High risk homeless</div>
         </div>
 
-        <div class="chart">
-          <div class="bubbles-all" id="bubblesAll">
-            <div class="tooltip-all"></div>
-          </div>
+        <div class="legend-container bubbles-legend selected" id="legend-all">
+          <div class="legend-element"><div class="noproblem swatch"></div><div class="key">No diagnosis (26.0%)</div></div>
+          <div class="legend-element"><div class="medical swatch"></div><div class="key">Medical diagnosis only (4.7%)</div></div>
+          <div class="legend-element"><div class="mental swatch"></div><div class="key">Mental health diagnosis only (5.9%)</div></div>
+          <div class="legend-element"><div class="sa swatch"></div><div class="key">Substance abuse diagnosis only (7.8%)</div></div>
+        </div>
+        <div class="legend-container bubbles-legend" id="legend-onepercent">
+          <div class="legend-element"><div class="noproblem swatch"></div><div class="key">No diagnosis (6.8%)</div></div>
+          <div class="legend-element"><div class="medical swatch"></div><div class="key">Medical diagnosis only (1.5%)</div></div>
+          <div class="legend-element"><div class="mental swatch"></div><div class="key">Mental health diagnosis only (3.3%)</div></div>
+          <div class="legend-element"><div class="sa swatch"></div><div class="key">Substance abuse diagnosis only (3.3%)</div></div>
         </div>
 
-        <div class="hed">
-          The top 1% of emergency care users among the homeless have the worst health problems
-        </div>
         <div class="chart">
           <div class="bubbles" id="bubbles">
-            <div class="tooltip"></div>
           </div>
         </div>
 
