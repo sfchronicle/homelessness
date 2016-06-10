@@ -40,6 +40,12 @@
 @sa: lighten(#DE8067,0%);
 @noproblem: lighten(#493843,20%);
 
+@CA: #D13D59;
+@WA: #996B7D;
+@TX: #A89170;
+@IL: #61988E;
+@FL: #6E7B8E;
+
 // overall styles --------------------------------------------------------------
 
 .header311 {
@@ -77,6 +83,9 @@
   padding-bottom: 5px;
   font-family: @block-graphics;
   margin: 20px auto;
+  &.lesspadding {
+    margin: 10px auto;
+  }
   @media @tablet {
     padding: 10px;
   }
@@ -95,6 +104,7 @@
   }
 }
 .source, .credit {
+  clear: left;
   padding-top: 10px;
   font-size: 12px;
   color: @dark-gray;
@@ -117,9 +127,9 @@ text {
   font-family: @block-graphics;
 }
 
-// bar graph styles ------------------------------------------------------------
+// bar chart styles ------------------------------------------------------------
 
-.bar-chart, .stacked-bar-graph {
+.bar-chart, .city-graph {
 
   svg {
     display: block;
@@ -138,8 +148,8 @@ text {
 
   .x.axis line,
   .x.axis path {
-    stroke: #fff;
-    fill: #fff;
+    fill: none;
+    stroke: #000;
   }
 
   .y.axis line,
@@ -148,6 +158,182 @@ text {
     stroke: #000;
   }
 
+}
+
+// bar graph styles ------------------------------------------------------------
+
+#costs-container {
+  max-width: 900px;
+  margin: auto;
+
+  .button-container {
+    text-align: center;
+    font-family: @block-graphics;
+    padding-bottom: 10px;
+    font-size: 14px;
+    .button {
+      width: 100px;
+      background: @light-gray;
+      display: inline-block;
+      padding: 5px;
+      border: 1px black solid;
+      border-radius: 2px;
+      cursor: pointer;
+      &.active {
+        background: @dark-gray;
+        color: white;
+      }
+      @media @mobile {
+        width: 46%;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.totals-chart, .avgs-chart {
+  font-family: @block-graphics;
+  font-size: 14px;
+  display: inline-block;
+  width: 100%;
+  display: none;
+  &.active {
+    display: inline-block;
+  }
+  // max-width: 95%;
+}
+
+.outer-chart {
+  @media @tablet {
+    width: 90%;
+    margin: auto;
+  }
+  @media @mobile {
+    width:95%;
+    margin: 0 auto;
+  }
+}
+
+.bar-title {
+  width: 25%;
+  float: left;
+  @media @mobile {
+    // padding-top: 5px;
+    // padding-bottom: 2px;
+    clear: left;
+    width: 100%;
+  }
+}
+
+.bar-container {
+  width: 75%;
+  display: inline-block;
+  float: left;
+  @media @mobile {
+    clear: left;
+    text-align: left;
+    width: 100%;
+  }
+
+  .totals-bar, .avgs-bar {
+    height: 22px;
+    &.medical {background: @medical;}
+    &.mental {background: @mental;}
+    &.sa {background: @sa;}
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    float: left;
+  }
+  .totals-text, .avgs-text {
+    font-size: 14px;
+    z-index: 200;
+    padding-top: 2px;
+    padding-left: 5px;
+    margin-left: 5px;
+  }
+}
+  // .totals-text {
+    // &.All {
+      // color: white;
+      // margin-left: -100px
+      // padding-left: 20px;
+      // @media @mobile {
+        // padding-left: 10px;
+      // }
+    // }
+  // }
+  // .avgs-text {
+  //   &.Young {
+  //     color: black;
+  //     padding-left: 30px;
+  //     @media @mobile {
+  //       padding-left: 10px;
+  //     }
+  //   }
+  // }
+
+
+&.up::after, &.down::after {
+  // position: absolute;
+  // color: @df-dark-gray;  // color: rgb(188, 92, 35);
+  font-size: 0.7em;
+  // text-align: right;
+  margin-left: 4px;
+}
+&.up::after {
+  content: "\25B2";
+  padding-top: 0.2em;
+}
+&.down::after {
+  content: "\25BC";
+  padding-top: 0.2em;
+}
+
+.tooltip-bars {
+    position: absolute;
+    background: white;
+    border: 1px solid @df-light-gray;
+    line-height: 130%;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, .2);
+    padding: 5px;
+    top: calc(~"100% + 5px");
+    right: 0;
+    display: none;
+    z-index: 999;
+    list-style-type: none;
+    margin: 10;
+
+    &.color_bar {
+      background: @light-gray;
+    }
+    .text-pop-up {
+      display: inline-block;
+      text-align: left;
+      margin-left: 10px;
+      vertical-align: top;
+    }
+    .swatch {
+      list-style: none;
+      padding: 8px;
+      width: 10px;
+      vertical-align: center;
+      display: inline-block;
+      &.medical { background: @medical;}
+      &.mental { background: @mental;}
+      &.sa { background: @sa;}
+    }
+    li {
+      white-space: nowrap;
+    }
+}
+
+.active-bars & .tooltip-bars {
+  display: block;
+}
+
+&:hover .tooltip-bars {
+  display: block;
 }
 
 // map styles ------------------------------------------------------------------
@@ -263,7 +449,7 @@ leaflet-map {
   }
 }
 
-#bubbles {
+#vennbubbles {
   .label {
     font-size: 14px;
     font-family: @bold-graphics;
@@ -454,4 +640,36 @@ leaflet-map {
   height: 10px;
   width: 10px;
   //margin: auto;
+}
+
+// new circle chart with cities ------------------------------------------------
+
+.city-graph {
+  margin: auto;
+}
+
+circle {
+  cursor: pointer;
+}
+
+.tooltip_cities {
+  background: @df-off-white;
+  font-size: 12px;
+  padding: 5px;
+  border: 1px solid @df-light-gray;
+  border-radius: 5px;
+  white-space: nowrap;
+  .swatch {
+    // width: 200px;
+    // height: 15px;
+    width: 15px;
+    height: 15px;
+    margin-left: 5px;
+    border-radius: 10px;
+    vertical-align: top;
+    &.CA {background: @CA;}
+    &.WA {background: @WA;}
+    &.TX {background: @TX;}
+    &.IL {background: @IL;}
+  }
 }

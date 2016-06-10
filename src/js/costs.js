@@ -1,105 +1,159 @@
-var d3 = require('d3');
+require("angular/angular.min");
 
-var bar_spacing = 0.2;
+// bar graph -------------------------------------------------------------------
 
-// stacked bar graph ----------------------------------------------------------
+var app = angular.module("costs",[]);
 
-if (screen.width > 768) {
-  var width = 600;
-  var height = 200;
-  var margin = {
-    top: 15,
-    right: 15,
-    bottom: 60,
-    left: 150
-  };
-} else if (screen.width <= 768 && screen.width > 480) {
-  var width = 500;
-  var height = 200;
-  var margin = {
-    top: 15,
-    right: 15,
-    bottom: 60,
-    left: 150
-  };
-} else if (screen.width <= 480) {
-  var width = 320;
-  var height = 150;
-  var margin = {
-    top: 15,
-    right: 0,
-    bottom: 60,
-    left: 0
-  };
-}
+app.controller("CostsController",["$scope", "$filter", function($scope) {
 
-// x-axis scale
-var y = d3.scale.ordinal()
-    .rangeRoundBands([height, 0], bar_spacing);
+  $scope.costsData = costsData;
+  $scope.max_cost_total = 151574905;
+  $scope.max_avg_total = 152515;
 
-// y-axis scale
-var x = d3.scale.linear()
-    .rangeRound([0, width]);
+  $scope.selectedTable = "totals";
+  $scope.lastSort = "order2";
+  $scope.selectSort = "order2";
+  $scope.sortOrder = 1;
 
-// color bands
-var color = d3.scale.ordinal()
-    .range(["#D13D59", "#FFCC32", "#DE8067"]);
+  $scope.sortTable = function(selectSort) {
 
-// use x-axis scale to set x-axis
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom")
-    .tickFormat(d3.format(".2s"));
+    $scope.selectSort = selectSort;
 
-// use y-axis scale to set y-axis
-if (screen.width <= 480) {
-  var yAxis = d3.svg.axis()
-      .scale(y)
-      .orient("left");
-} else {
-  var yAxis = d3.svg.axis()
-      .scale(y)
-      .orient("left");
-}
-    // .tickFormat(d3.format("s"));
+    if ($scope.lastSort == selectSort) {
+      $scope.sortOrder *= -1;
+    } else {
+      $scope.lastSort = selectSort;
+      $scope.sortOrder = 1;
+    }
 
-// create SVG container for chart components
-var svg = d3.select(".stacked-bar-graph").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    $scope.costsData.sort(function(a, b) {
+      if ($scope.selectedTable == "totals") {
+        a = a.order1;
+        b = b.order1;
+      } else {
+        a = a.order2;
+        b = b.order2;
+      }
 
-// convert strings to numbers
-costsData.forEach(function(d) {
-  d.group = d["group"];
-  d.medical = +d.medical;
-  d.mental = +d.mental;
-  d.sa = +d.sa;
-})
-
-// map columns to colors
-color.domain(d3.keys(costsData[0]).filter(function (key) {
-    // console.log(key);
-    return key !== "group";
-}));
-
-costsData.forEach(function (d) {
-    var y0 = 0;
-    d.types = color.domain().map(function (name) {
-        return {
-            name: name,
-            y0: y0,
-            y1: y0 += +d[name]
-        };
+      if (a > b) {
+        return 1 * $scope.sortOrder;
+      } else if (a < b) {
+        return -1 * $scope.sortOrder;
+      } else if (a == b) {
+        return 0;
+      }
     });
-    d.total = d.types[d.types.length - 1].y1;
-});
 
-// x domain is set of years
-y.domain(costsData.map(function (d) {
-    return d.group;
-}));
+  };
+
+  console.log($scope.tooltip_active);
+
+}]);
+
+
+
+// var d3 = require('d3');
+//
+// var bar_spacing = 0.2;
+//
+// // stacked bar graph ----------------------------------------------------------
+//
+// if (screen.width > 768) {
+//   var width = 600;
+//   var height = 200;
+//   var margin = {
+//     top: 15,
+//     right: 15,
+//     bottom: 60,
+//     left: 150
+//   };
+// } else if (screen.width <= 768 && screen.width > 480) {
+//   var width = 500;
+//   var height = 200;
+//   var margin = {
+//     top: 15,
+//     right: 15,
+//     bottom: 60,
+//     left: 150
+//   };
+// } else if (screen.width <= 480) {
+//   var width = 320;
+//   var height = 150;
+//   var margin = {
+//     top: 15,
+//     right: 0,
+//     bottom: 60,
+//     left: 0
+//   };
+// }
+//
+// // x-axis scale
+// var y = d3.scale.ordinal()
+//     .rangeRoundBands([height, 0], bar_spacing);
+//
+// // y-axis scale
+// var x = d3.scale.linear()
+//     .rangeRound([0, width]);
+//
+// // color bands
+// var color = d3.scale.ordinal()
+//     .range(["#D13D59", "#FFCC32", "#DE8067"]);
+//
+// // use x-axis scale to set x-axis
+// var xAxis = d3.svg.axis()
+//     .scale(x)
+//     .orient("bottom")
+//     .tickFormat(d3.format(".2s"));
+//
+// // use y-axis scale to set y-axis
+// if (screen.width <= 480) {
+//   var yAxis = d3.svg.axis()
+//       .scale(y)
+//       .orient("left");
+// } else {
+//   var yAxis = d3.svg.axis()
+//       .scale(y)
+//       .orient("left");
+// }
+//     // .tickFormat(d3.format("s"));
+//
+// // create SVG container for chart components
+// var svg = d3.select(".stacked-bar-graph").append("svg")
+//     .attr("width", width + margin.left + margin.right)
+//     .attr("height", height + margin.top + margin.bottom)
+//     .append("g")
+//     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+//
+// // convert strings to numbers
+// costsData.forEach(function(d) {
+//   d.group = d["group"];
+//   d.medical = +d.medical;
+//   d.mental = +d.mental;
+//   d.sa = +d.sa;
+// })
+//
+// // map columns to colors
+// color.domain(d3.keys(costsData[0]).filter(function (key) {
+//     // console.log(key);
+//     return key !== "group";
+// }));
+//
+// costsData.forEach(function (d) {
+//     var y0 = 0;
+//     d.types = color.domain().map(function (name) {
+//         return {
+//             name: name,
+//             y0: y0,
+//             y1: y0 += +d[name]
+//         };
+//     });
+//     d.total = d.types[d.types.length - 1].y1;
+// });
+//
+// // x domain is set of years
+// y.domain(costsData.map(function (d) {
+//     return d.group;
+// }));
 
 // svg.append("text")
 //     .attr("class", "y label")
@@ -110,50 +164,50 @@ y.domain(costsData.map(function (d) {
 //     .attr("transform", "rotate(-90)")
 //     .text("Cost in ");
 
-// y domain is scaled by highest total
-x.domain([0, d3.max(costsData, function (d) {
-    return d.total;
-})]);
-
-svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-
-svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis);
-
-// generate rectangles for all the data values
-var group = svg.selectAll(".group")
-    .data(costsData)
-    .enter().append("g")
-    .attr("class", "g")
-    .attr("transform", function (d) {
-      return "translate(0," + y(d.group) + ")";
-    });
-
-group.selectAll("rect")
-    .data(function (d) {
-        return d.types;
-    })
-    .enter().append("rect")
-    .attr("height", y.rangeBand())
-    .attr("x", function (d) {
-        return x(d.y0);
-    })
-    .attr("width", function (d) {
-        return x(d.y1) - x(d.y0);
-    })
-    .style("fill", function (d) {
-        return color(d.name);
-    });
-
-svg.append("text")      // text label for the x axis
-        .attr("x", width/2 )
-        .attr("y", height + 45 )
-        .style("text-anchor", "middle")
-        .text("Cost 2014-2015");
+// // y domain is scaled by highest total
+// x.domain([0, d3.max(costsData, function (d) {
+//     return d.total;
+// })]);
+//
+// svg.append("g")
+//     .attr("class", "x axis")
+//     .attr("transform", "translate(0," + height + ")")
+//     .call(xAxis);
+//
+// svg.append("g")
+//     .attr("class", "y axis")
+//     .call(yAxis);
+//
+// // generate rectangles for all the data values
+// var group = svg.selectAll(".group")
+//     .data(costsData)
+//     .enter().append("g")
+//     .attr("class", "g")
+//     .attr("transform", function (d) {
+//       return "translate(0," + y(d.group) + ")";
+//     });
+//
+// group.selectAll("rect")
+//     .data(function (d) {
+//         return d.types;
+//     })
+//     .enter().append("rect")
+//     .attr("height", y.rangeBand())
+//     .attr("x", function (d) {
+//         return x(d.y0);
+//     })
+//     .attr("width", function (d) {
+//         return x(d.y1) - x(d.y0);
+//     })
+//     .style("fill", function (d) {
+//         return color(d.name);
+//     });
+//
+// svg.append("text")      // text label for the x axis
+//         .attr("x", width/2 )
+//         .attr("y", height + 45 )
+//         .style("text-anchor", "middle")
+//         .text("Cost 2014-2015");
 
 //
 // // bubble graph ----------------------------------------------------------------

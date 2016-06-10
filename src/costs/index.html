@@ -10,9 +10,9 @@
   </head>
   <body>
 
-    <responsive-child class="bubbles-costs-container">
+    <responsive-child class="costs-container">
 
-      <div class="outer">
+      <div ng-controller="CostsController" ng-app="costs" id="costs-container">
 
         <div class="hed">
            Urgent and emergent services for the homeless are expensive
@@ -22,18 +22,63 @@
           The San Franciso Department of Health accrues costs that vary across the different homeless populations. Spending is predominantly for medical care.
         </div>
 
-        <!-- <div class="chart"> -->
-
         <div class="legend-container">
           <div class="legend-element"><div class="medical swatch"></div><div class="key">Medical care costs</div></div>
           <div class="legend-element"><div class="mental swatch"></div><div class="key">Mental health care costs</div></div>
           <div class="legend-element"><div class="sa swatch"></div><div class="key">Substance abuse costs</div></div>
         </div>
 
+        <div class="button-container">
 
-          <div class="stacked-bar-graph">
-            <div class="tooltip"></div>
+          <div class="button totals"
+          ng-click="selectedTable = 'totals'; sortTable('order2')"
+          ng-class="{active:selectSort == 'order2',
+                    up: lastSort == 'order2' && sortOrder == -1,
+                    down: lastSort == 'order2' && sortOrder == 1 }">Totals</div>
+          <div class="button avgs"
+          ng-click="selectedTable = 'avgs'; sortTable('order1')"
+          ng-class="{active:selectSort == 'order1',
+                    up: lastSort == 'order1' && sortOrder == -1,
+                    down: lastSort == 'order1' && sortOrder == 1 }">Averages</div>
+
+        </div>
+
+        <div class="outer-chart">
+
+          <div class="totals-chart" ng-repeat="co in costsData"
+          ng-class="{'active':selectedTable == 'totals'}">
+            <div class="bar-title">{{co.group}}</div>
+              <div class="bar-container">
+                <div class="totals-bar medical"
+                  ng-style="{ width: {{co.medical/max_cost_total*85}} + '%' }">
+                </div>
+                <div class="totals-bar mental"
+                  ng-style="{ width: {{co.mental/max_cost_total*85}} + '%' }">
+                </div>
+                <div class="totals-bar sa"
+                  ng-style="{ width: {{co.sa/max_cost_total*85}} + '%' }">
+                </div>
+                <div class="totals-text {{co.group}}">${{co.totals_text}}M</div>
+              </div>
           </div>
+
+          <div class="avgs-chart" ng-repeat="co in costsData"
+          ng-class="{'active':selectedTable == 'avgs'}">
+            <div class="bar-title">{{co.group}}</div>
+              <div class="bar-container">
+                <div class="avgs-bar medical"
+                  ng-style="{ width: {{co.medical/max_avg_total/co.num*85}} + '%' }">
+                </div>
+                <div class="avgs-bar mental"
+                  ng-style="{ width: {{co.mental/max_avg_total/co.num*85}} + '%' }">
+                </div>
+                <div class="avgs-bar sa"
+                  ng-style="{ width: {{co.sa/max_avg_total/co.num*85}} + '%' }">
+                </div>
+                <div class="totals-text {{co.group}}">${{co.avgs_text}}K</div>
+              </div>
+          </div>
+        </div>
 
         <!-- </div> -->
 

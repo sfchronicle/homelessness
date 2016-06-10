@@ -10,40 +10,19 @@
   </head>
   <body>
 
-    <responsive-child class="bubbles-costs-container">
+    <responsive-child class="costs-container">
 
       <div class="outer">
 
         <div class="hed">
-          Cost to the city of SF populations for
-          <div class="info"></div>
+           San Francisco has a high proportion of homeless
         </div>
 
-        <div class="chart">
-
-          <div class="dropdown">
-            Choose an emergency care cost:
-            <select id="select">
-              <option selected="selected" disabled="disabled">--</option>
-              <option value=0 >Emergency services (total)</option>
-              <option value=1 >Emergency services (average)</option>
-              <option value=2 >Medical emergency services (average)</option>
-              <option value=3 >Mental health services (average)</option>
-              <option value=4 >Substance abuse services (average)</option>
-            </select>
-
-            <div class="controls">
-              <div class="start selected"><i class="fa fa-play"></i></div>
-              <div class="pause"><i class="fa fa-pause"></i></div>
-            </div>
-          </div>
-
-          <div class="bubbles">
-            <div class="tooltip"></div>
-          </div>
-
-          <div class="note">Hover over or click on a bubble for more information.</div>
+        <div class="chatter">
+          San Francisco is one of the cities with the highest proportion of homeless to the general population, and many of those homeless are unsheltered. The size of the circles is proportional to the number of unsheltered homeless per 100,000 county residents. Note that we did not display data for New York City or Los Angeles.
         </div>
+
+        <div class="city-graph" id="city-graph"></div>
 
         <div class="credit">
           <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
@@ -58,11 +37,10 @@
     </responsive-child>
 
     <script>
-      var costsData = <%= JSON.stringify(csv.costs_data_short) %>;
-      console.log(costsData);
+      var pitData = <%= JSON.stringify(csv.homeless_pit_data_2015) %>;
     </script>
 
-    <script src="../costs.js" async></script>
+    <script src="../bycity_app.js" async></script>
     <%= t.include("partials/_foot.html") %>
     <%= t.include("partials/_helloSFC.html") %>
   </body>

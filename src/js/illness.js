@@ -54,15 +54,17 @@ var setsALL = [ {sets: [0], label: "No diagnosis: 26.0%", size: 26.0, percent: 2
             {sets: [0,1,2,3], size: 0}
           ];
 
+console.log(width);
+console.log(height);
 var chart = venn.VennDiagram(width,height,padding,duration);
-d3.select("#bubbles").datum(setsALL).call(chart);
-var vennselect = d3.select("#bubbles")
+d3.select("#vennbubbles").datum(setsALL).call(chart);
+var vennselect = d3.select("#vennbubbles")
 
 // add a tooltip
 // var tooltip = document.querySelector(".tooltip");
 
 // show tooltip
-var bubblestooltip = d3.select("#bubbles")
+var bubblestooltip = d3.select("#vennbubbles")
     .append("div")
     .attr("class","bubblestooltip")
     .style("position", "absolute")
@@ -70,8 +72,8 @@ var bubblestooltip = d3.select("#bubbles")
     .style("visibility", "hidden")
 
 $("#all").click(function() {
-  d3.select("#bubbles").datum(setsALL).call(chart);
-  d3.selectAll("#bubbles label").style("text-anchor","end !important");
+  d3.select("#vennbubbles").datum(setsALL).call(chart);
+  d3.selectAll("#vennbubbles label").style("text-anchor","end !important");
   $("#all").addClass("selected");
   $("#one").removeClass("selected");
   $("#legend-all").addClass("selected");
@@ -79,28 +81,28 @@ $("#all").click(function() {
 });
 
 $("#one").click(function() {
-  d3.select("#bubbles").datum(setsONEPERCENT).call(chart);
-  d3.selectAll("#bubbles label").style("text-anchor","end !important");
+  d3.select("#vennbubbles").datum(setsONEPERCENT).call(chart);
+  d3.selectAll("#vennbubbles label").style("text-anchor","end !important");
   $("#all").removeClass("selected");
   $("#one").addClass("selected");
   $("#legend-all").removeClass("selected");
   $("#legend-onepercent").addClass("selected");
 });
 
-d3.selectAll("#bubbles .venn-circle path")
+d3.selectAll("#vennbubbles .venn-circle path")
     .style("fill-opacity", .6)
     .style("fill",function(d,i) {
       return colours[i]
     });
 
-d3.selectAll("#bubbles .venn-circle path")
+d3.selectAll("#vennbubbles .venn-circle path")
     //  .style("fill-opacity", 0)
      .style("stroke-width", 2)
      .style("stroke-opacity", 1)
      .style("stroke", function(d,i) { return colours[i]; });
 
-d3.selectAll("#bubbles text").style("fill", "black");
-d3.selectAll("#bubbles label").style("text-anchor","end !important");
+d3.selectAll("#vennbubbles text").style("fill", "black");
+d3.selectAll("#vennbubbles label").style("text-anchor","end !important");
 
 // add listeners to all the groups to display tooltip on mouseover
 vennselect.selectAll("g")
