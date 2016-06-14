@@ -58,9 +58,9 @@ if (screen.width > 768) {
 } else if (screen.width <= 480) {
   var margin = {
     top: 15,
-    right: 10,
+    right: 15,
     bottom: 40,
-    left: 35
+    left: 45
   };
   var width = 310 - margin.left - margin.right;
   var height = 350 - margin.top - margin.bottom;
@@ -94,16 +94,33 @@ var y = d3.scale.linear()
 // var color = "red";
 
 // use x-axis scale to set x-axis
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom")
-    .tickFormat(d3.format(".2s"));
+if(screen.width <= 480) {
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom")
+      .tickFormat(function(d) {
+        console.log(d);
+        if ((d/100000 & 1) == 1) {
+          return '';
+        } else {
+          return d/1e6 + "M";
+        }
+      });
+
+} else {
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom")
+      .tickFormat(d3.format(".2s"));
+}
 
 // use y-axis scale to set y-axis
 var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left")
-    .tickFormat(d3.format(".2s"));
+    .tickFormat(function(d) {
+      return d/1e3 + "K";
+    })//d3.format(".2s"));
 
 // create SVG container for chart components
 var svg = d3.select(".city-graph").append("svg")
@@ -115,30 +132,57 @@ var svg = d3.select(".city-graph").append("svg")
 x.domain(d3.extent(pitData, function(d) { return d.population; })).nice();//.nice();
 y.domain(d3.extent(pitData, function(d) { return d.total_homeless; })).nice(); //.nice();
 
+if (screen.width <= 480) {
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .append("text")
+      .attr("class", "label")
+      .attr("x", width)
+      .attr("y", 35)
+      .style("text-anchor", "end")
+      .text("County population");
+} else {
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .append("text")
+      .attr("class", "label")
+      .attr("x", width)
+      .attr("y", 40)
+      .style("text-anchor", "end")
+      .text("County population");
+}
 
-svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis)
-    .append("text")
-    .attr("class", "label")
-    .attr("x", width)
-    .attr("y", 40)
-    .style("text-anchor", "end")
-    .text("County population");
-
-svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis)
-    .append("text")
-    .attr("class", "label")
-    .attr("transform", "rotate(-90)")
-    .attr("y", -60)
-    .attr("x", -10)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    // .style("fill","white")
-    .text("County homeless population")
+if (screen.width <= 480) {
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -45)
+      .attr("x", -10)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      // .style("fill","white")
+      .text("County homeless population")
+} else {
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -60)
+      .attr("x", -10)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      // .style("fill","white")
+      .text("County homeless population")
+}
 
 
 //color in the dots
@@ -231,17 +275,17 @@ var node = svg.selectAll(".circle")
   node.append("text")
       .attr("x", function(d) {
         if (d.coc == "San Francisco") {
-          if (screen.width > 768) {
-            return x(d.population)+10;
-          } else {
-            return x(d.population);
-          }
+          return x(d.population)+10;
         } else {
           return x(d.population)-20;
         }
       })
       .attr("y", function(d) {
-        return y(d.total_homeless)-10;
+        if ((d.coc == "San Francisco") && (screen.width <= 480)) {
+          return y(d.total_homeless);
+        } else {
+          return y(d.total_homeless)-10;
+        }
       })
       .attr("id", function(d) {
         return (d.coc.replace(/\s/g, '').toLowerCase()+"text");
@@ -253,7 +297,7 @@ var node = svg.selectAll(".circle")
           if (screen.width > 768) {
             return "25px"
           } else {
-            return "13px"
+            return "20px"
           }
         } else {
           if (screen.width > 768) {
@@ -280,7 +324,11 @@ var node = svg.selectAll(".circle")
         }
       })
       .text(function(d) {
+        if ((d.coc == "San Francisco") && (screen.width <= 480)) {
+          return "SF"
+        } else {
           return d.coc
+        }
       });
 // }
 

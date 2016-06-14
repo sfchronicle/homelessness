@@ -45,6 +45,33 @@
 @TX: #A89170;
 @IL: #61988E;
 @FL: #6E7B8E;
+@CO: #80A9D0;
+@PA: #FFE599;
+@HI: #FFCC32;
+@OH: #99B4CF;
+@MN: #99B4CF;
+@UT: #E89EAC;
+@MA: #9FA7B3;
+@ME: #E59FA6;
+@AK: #61988E;
+@GA: #846A6A;
+@OR: #EB8F6A;
+@LA: #6F7D8C;
+@AZ: #DE8067;
+@NV: #667A96;
+@NC: #FFE599;
+@MO: #9C8B9E;
+@WI: #D04B61;
+@IA: #996B7D;
+@NM: #DE8067;
+@OK: #493843;
+@MD: #80A9D0;
+@DC: #DE8067;
+@TN: #FFE599;
+@MI: #6C85A5;
+@KY: #D04B61;
+@NJ: #889C6B;
+@IN: #E6A8A8;
 
 // overall styles --------------------------------------------------------------
 
@@ -172,7 +199,7 @@ text {
     padding-bottom: 10px;
     font-size: 14px;
     .button {
-      width: 100px;
+      width: 120px;
       background: @light-gray;
       display: inline-block;
       padding: 5px;
@@ -215,18 +242,19 @@ text {
 }
 
 .bar-title {
-  width: 25%;
+  width: 33%;
   float: left;
   @media @mobile {
     // padding-top: 5px;
     // padding-bottom: 2px;
     clear: left;
     width: 100%;
+    padding-bottom: 2px;
   }
 }
 
 .bar-container {
-  width: 75%;
+  width: 66%;
   display: inline-block;
   float: left;
   @media @mobile {
@@ -246,11 +274,12 @@ text {
     float: left;
   }
   .totals-text, .avgs-text {
-    font-size: 14px;
+    font-size: 13px;
     z-index: 200;
     padding-top: 2px;
+    display: inline-block;
     padding-left: 5px;
-    margin-left: 5px;
+    // margin-left: 5px;
   }
 }
   // .totals-text {
@@ -671,5 +700,33 @@ circle {
     &.WA {background: @WA;}
     &.TX {background: @TX;}
     &.IL {background: @IL;}
+    &.FL {background: @FL;}
+    &.CO {background: @CO;}
+    &.PA {background: @PA;}
+    &.HI {background: @HI;}
+    &.OH {background: @OH;}
+    &.MN {background: @MN;}
+    &.UT {background: @UT;}
+    &.MA {background: @MA;}
+    &.ME {background: @ME;}
+    &.AK {background: @AK;}
+    &.GA {background: @GA;}
+    &.OR {background: @OR;}
+    &.LA {background: @LA;}
+    &.AZ {background: @AZ;}
+    &.NV {background: @NV;}
+    &.NC {background: @NC;}
+    &.MO {background: @MO;}
+    &.WI {background: @WI;}
+    &.IA {background: @IA;}
+    &.NM {background: @NM;}
+    &.OK {background: @OK;}
+    &.MD {background: @MD;}
+    &.DC {background: @DC;}
+    &.TN {background: @TN;}
+    &.MI {background: @MI;}
+    &.KY {background: @KY;}
+    &.NJ {background: @NJ;}
+    &.IN {background: @IN;}
   }
 }
