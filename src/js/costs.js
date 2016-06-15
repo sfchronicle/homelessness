@@ -46,8 +46,6 @@ app.controller("CostsController",["$scope", "$filter", function($scope) {
 
   };
 
-  console.log($scope.tooltip_active);
-
 }]);
 
 

@@ -68,6 +68,7 @@ if (screen.width > 768) {
 
 // convert strings to numbers
 pitData.forEach(function(d) {
+  console.log(d);
   d.coc = d.coc_name;
   d.state = d.coc_number.substring(0,2);
   d.total_homeless = +d.total_homeless;
@@ -99,7 +100,6 @@ if(screen.width <= 480) {
       .scale(x)
       .orient("bottom")
       .tickFormat(function(d) {
-        console.log(d);
         if ((d/100000 & 1) == 1) {
           return '';
         } else {
@@ -212,12 +212,11 @@ svg.selectAll(".dot")
     })
     .on("mouseover", function(d) {
         tooltip_cities.html(`
-            <div>County: <b>${d.coc}</b></div>
+            <div>County/city: <b>${d.coc}</b></div>
             <div>State: <b>${d.state}</b><div class="swatch ${d.state}"></div></div>
-            <div>County total population: <b>${d.population}</b></div>
-            <div>County homeless population: <b>${d.total_homeless}</b></div>
-            <div>County unsheltered homeless population: <b>${d.unsheltered_homeless}</b></div>
-            <div>Proportion of homeless: <b>${d.percent}</b></div>
+            <div>Total homeless population: <b>${d.total_homeless}</b></div>
+            <div>Homeless population per 100,000: <b>${d.homeless_norm}</b></div>
+            <div>Unsheltered homeless per 100,000: <b>${d.unsheltered_norm}</b></div>
         `);
         tooltip_cities.style("visibility", "visible");
     })

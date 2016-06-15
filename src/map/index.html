@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <%= t.include("partials/_head.html") %>
   </head>
+  <script type="text/javascript" src="http://projects.sfchronicle.com/shared/js/pym.min.js"></script>
   <body>
 
     <responsive-child class="map-container">
       <div class="outer">
 
-        <div class="hed">Complaints about the homeless are rising in SF</div>
-        <div class="chatter">Residents in SF can register complaints about the homeless through 311, and such reports have been proliferating at an extremely high rate. Police, on the other hand, have been issuing standard numbers of citations.</div>
+        <div class="hed">Complaints and police calls involving the homeless are rising</div>
+        <div class="chatter">The number of complaints regarding homeless camps made to San Francisco’s 311 portal, as well as police calls considered “homeless related”, have increased in the city over the past three years, indicating the public is growing increasingly frustrated with the city’s homeless population.</div>
 
         <div class="map-options" id="mapoptions">
           <div class="map311 selected" id="map311">311 complaints</div>
@@ -26,8 +27,8 @@
           <div class="start selected"><i class="fa fa-play"></i></div>
           <div class="pause"><i class="fa fa-pause"></i></div>
         </div>
-        <div class="display-info info311 selected" id="map311-info">Complaint data is displayed for the last three calendar years, beginning in January and ending in December of each year.</div>
-        <div class="display-info info911" id="map911-info">Police citations are displayed for three 12-month periods beginning and ending in March, starting in March 2013. Police dispatches are much higher than police citations and those numbers are denoted on the bar chart below.</div>
+        <div class="display-info info311 selected" id="map311-info">311 calls pertaining to encampments have spiked over the past year. As of mid-May, there had already been nearly 7,000 encampment related complaints, a 55 percent increase from all of 2015.</div>
+        <div class="display-info info911" id="map911-info">Police arrests and citations are displayed for three 12-month periods beginning and ending in March. The number of citations and arrests makes up a small percentage of all dispatched police calls, which are displayed in the bar charts below.</div>
 
         <div class="aspect-ratio-outer">
           <div class="aspect-ratio-inner">
@@ -40,12 +41,12 @@
         </div>
 
         <div class="header311 active">
-          <div class="hed barhed">Homeless complaints are a growing proportion of 311 complaints</div>
-          <div class="chatter">San Francisco residents have been submitting increasing numbers of 311 complaints in the last 4 years. Data for 2016 is not complete, yet it already eclipses previous years. Homeless complaints have been a growing proportion of these complaints, reflecting the public's increasing frustration with the homeless population.</div>
+          <div class="hed barhed">Encampment complaints are a growing proportion of all 311 calls.</div>
+          <div class="chatter">While 311 has become more popular in recent years, the number of grievances regarding homeless camps has increased at an especially high rate.</div>
         </div>
         <div class="header911">
-          <div class="hed barhed">Police dispatches are increasing</div>
-          <div class="chatter">Police are being dispatched more and more for homeless-related and sit-lie complaints. A small proportion of these responses result in citations or arrests, and these numbers have remained relatively constant over the last three years.</div>
+          <div class="hed barhed">Homeless related police calls increasing</div>
+          <div class="chatter">The number of homeless-related police calls – which, among other things, include a homeless person trespassing, occupying an encampment, or lying on the sidewalk – have increased steadily over the past three years. Such calls make up a small subset of all police interactions with the homeless. Other “quality of life” violations account for thousands of additional interactions.</div>
           <div class="legend-container">
             <div class="legend-element"><div class="dispatched919 swatch"></div><div class="key">Dispatched sit-lie calls</div></div>
             <div class="legend-element"><div class="cite919 swatch"></div><div class="key">Sit-lie citations and arrests</div></div>
@@ -59,8 +60,8 @@
           <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
           <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
         </div>
-        <div class="source">
-          <em>Source: <a href="https://data.sfgov.org/City-Infrastructure/Case-Data-from-San-Francisco-311-SF311-/vw6y-z8j6" target="_blank">311 data</a> is recorded by the city of San Francisco.</em>
+        <div class="source">Source: 
+          <em><a href="https://data.sfgov.org/City-Infrastructure/Case-Data-from-San-Francisco-311-SF311-/vw6y-z8j6" target="_blank">Department of Emergency Management, 311</a></em>
         </div>
 
       </div>

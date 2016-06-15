@@ -15,11 +15,11 @@
       <div ng-controller="CostsController" ng-app="costs" id="costs-container">
 
         <div class="hed">
-           Urgent and emergent services for the homeless are expensive
+           The cost of emergency services for SF’s homeless population
         </div>
 
         <div class="chatter">
-          The San Franciso Department of Health accrues costs that vary across the different homeless populations. Spending is predominantly for medical care.
+          San Francisco’s Department of Public Health provided medical, mental health or substance abuse serves to 9,975 homeless individuals during the last fiscal year. About 75 percent of them used emergency health services, costing the city more than $150 million. A small subset of the population – the 338 people accessing the most emergency care – raked up particularly high costs.
         </div>
 
         <div class="legend-container">
@@ -47,7 +47,7 @@
 
           <div class="totals-chart" ng-repeat="co in costsData"
           ng-class="{'active':selectedTable == 'totals'}">
-            <div class="bar-title">{{co.group}}</div>
+            <div class="bar-title">{{co.group}} ({{co.num}})</div>
               <div class="bar-container">
                 <div class="totals-bar medical"
                   ng-style="{ width: {{co.medical/max_cost_total*85}} + '%' }">
@@ -64,7 +64,7 @@
 
           <div class="avgs-chart" ng-repeat="co in costsData"
           ng-class="{'active':selectedTable == 'avgs'}">
-            <div class="bar-title">{{co.group}}</div>
+            <div class="bar-title">{{co.group}} ({{co.num}})</div>
               <div class="bar-container">
                 <div class="avgs-bar medical"
                   ng-style="{ width: {{co.medical/max_avg_total/co.num*85}} + '%' }">
@@ -86,9 +86,9 @@
           <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
           <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
         </div>
-        <div class="source">About the data: Long-term homeless are those that have been on the street for longer than 10 years, either intermitently or continuously. The highest users of emergency services are the 338 homeless individuals that used the most medical, mental health or substance abuse emergency services. Homeless elders are 60 or older. Young homeless are those between 18 and 24 years old.</div>
+        <div class="source">About the data: Long-term homeless are those that have been on the street for longer than 10 years, either intermitently or continuously. The high risk homeless are the 338 homeless individuals that used the most medical, mental health or substance abuse emergency services. Homeless elders are 60 or older. Young homeless are those between 18 and 24 years old.</div>
         <div class="source">
-          <em>Source: <a href="https://data.sfgov.org/City-Infrastructure/Case-Data-from-San-Francisco-311-SF311-/vw6y-z8j6" target="_blank">311 data</a></em>
+          <em>Source: Department of Public Health’s Coordinated Care Management System data</em>
         </div>
 
     </div>
