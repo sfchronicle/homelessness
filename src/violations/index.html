@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= json.project.title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <%= t.include("partials/_head.html") %>
+  </head>
+  <body>
+
+    <div id="violations-container">
+
+      <div class="hed">
+         Heading
+      </div>
+
+      <div class="chatter">
+        This is chatter
+      </div>
+
+
+      <div class="credit">
+        <div class="entry">Name Name  &bull; <a href="mailto:name@sfchronicle.com">name@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/name" target="_blank">@name</a></div>
+      </div>
+      <div class="source">
+        <em>Source: This is the source.</em>
+      </div>
+
+    </div>
+
+    <script>
+      console.log("you could load the data here.");
+    </script>
+
+    <script src="../violations_app.js" async></script>
+    <%= t.include("partials/_foot.html") %>
+    <%= t.include("partials/_helloSFC.html") %>
+  </body>
+</html>
