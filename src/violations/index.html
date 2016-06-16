@@ -10,28 +10,45 @@
   </head>
   <body>
 
-    <div id="violations-container">
+    <responsive-child class="violations-container">
+
+      <div ng-controller="ViolationsController" ng-app="violations" id="violations-container">
 
       <div class="hed">
-         Heading
+         Quality of life violations for the homeless in 2014
       </div>
 
       <div class="chatter">
         This is chatter
       </div>
 
+      <div class="violations-graph" ng-repeat="co in violationsData">
+            <div class="bar-title">{{co.violation}}</div>
+              <div class="bar-container">
+                <div class="violations-bar"
+                  ng-style="{ width: {{co.count/max*85}} + '%' }">
+                </div>
+                <div class="violations-text {{co.count_text}}">{{co.count_text}}</div>
+              </div>
+        </div>      
 
       <div class="credit">
-        <div class="entry">Name Name  &bull; <a href="mailto:name@sfchronicle.com">name@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/name" target="_blank">@name</a></div>
+        <div class="entry">Kurtis Alexander  &bull; <a href="mailto:kalexander@sfchronicle.com">kalexander@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/kurtisalexander" target="_blank">@kurtisalexander</a></div>
+        <div class="entry">Benjamin Din  &bull; <a href="mailto:bdin@sfchronicle.com">bdin@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/benjamindin" target="_blank">@benjamindin</a></div>
       </div>
       <div class="source">
-        <em>Source: This is the source.</em>
+        <em>Source: San Francisco Police Department.</em>
       </div>
 
     </div>
 
+  </div>
+
+  </responsive-child>
+
     <script>
-      console.log("you could load the data here.");
+      var violationsData = <%= JSON.stringify(csv.violations_data) %>;
+      console.log(violationsData);
     </script>
 
     <script src="../violations_app.js" async></script>
