@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
   <head>
+    <script type="text/javascript" src="http://projects.sfchronicle.com/shared/js/pym.min.js"></script>
     <title><%= json.project.title %></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -87,7 +88,7 @@
           <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
         </div>
         <div class="source">About the data: Long-term homeless are those that have been on the street for longer than 10 years, either intermitently or continuously. The high risk homeless are the 338 homeless individuals that used the most medical, mental health or substance abuse emergency services. Homeless elders are 60 or older. Young homeless are those between 18 and 24 years old.</div>
-        <div class="source">
+        <div class="source padded">
           <em>Source: Department of Public Health’s Coordinated Care Management System data</em>
         </div>
 
@@ -97,7 +98,7 @@
 
     <script>
       var costsData = <%= JSON.stringify(csv.financial_data) %>;
-      console.log(costsData);
+      var pymChild = new pym.Child({polling: 500});
     </script>
 
     <script src="../costs_app.js" async></script>

@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
   <head>
+    <script type="text/javascript" src="http://projects.sfchronicle.com/shared/js/pym.min.js"></script>
     <title><%= json.project.title %></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -60,7 +61,7 @@
           <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
           <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
         </div>
-        <div class="source">Source: 
+        <div class="source">Source:
           <em><a href="https://data.sfgov.org/City-Infrastructure/Case-Data-from-San-Francisco-311-SF311-/vw6y-z8j6" target="_blank">Department of Emergency Management, 311</a></em>
         </div>
 
@@ -73,6 +74,7 @@
       var calls911Data = <%= JSON.stringify(csv.Data911_map) %>;
       var barchart311Data = <%= JSON.stringify(csv.Data311_barchart) %>;
       var barchart911Data = <%= JSON.stringify(csv.Data911_barchart) %>;
+      var pymChild = new pym.Child({polling: 500});
     </script>
 
     <script src="../app.js" async></script>

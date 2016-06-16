@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
   <head>
+    <script type="text/javascript" src="http://projects.sfchronicle.com/shared/js/pym.min.js"></script>
     <title><%= json.project.title %></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -39,6 +40,7 @@
 
     <script>
       var pitData = <%= JSON.stringify(csv.homeless_pit_data_2015) %>;
+      var pymChild = new pym.Child({polling: 500});
     </script>
 
     <script src="../bycity_app.js" async></script>
