@@ -195,7 +195,6 @@ setTimeout( function(){
     document.querySelector(".pause").classList.add("selected");
     looping = false;
     clearTimeout(loop);
-    console.log("we been running for long enough!")
   }  , 60000 );
 
 // clustered bar graph ----------------------------------------------------------
@@ -289,7 +288,6 @@ function barchart() {
         .scale(x0)
         .orient("bottom")
         .tickFormat(function(d) {
-          console.log(d.slice(-1));
           if ((d.slice(-1) & 1) != 0) {
             return '';
           } else {
@@ -323,7 +321,6 @@ function barchart() {
 	});
 
   if (toggle == "911") {
-    console.log(barData);
     var yBegin;
     var innerColumns = {
       "column1" : ["dispatched_sit_lie_calls", "sit_lie_citations_and_arrests"],
@@ -370,8 +367,6 @@ function barchart() {
    })]);
 
   } else {
-
-    console.log(barData);
 
   	if (!barData[0].types) {
   		barData.forEach(function (d) {

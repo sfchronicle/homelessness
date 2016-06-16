@@ -68,7 +68,6 @@ if (screen.width > 768) {
 
 // convert strings to numbers
 pitData.forEach(function(d) {
-  console.log(d);
   d.coc = d.coc_name;
   d.state = d.coc_number.substring(0,2);
   d.total_homeless = +d.total_homeless;
