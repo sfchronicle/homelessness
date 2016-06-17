@@ -86,11 +86,11 @@ var drawMap = function(selected_year,callsData) {
   		.style("opacity", .5)
   		.style("fill", function(d) {
   			if (d.CALL_TYPE == "915") {
-  				return "#EB5773"//'#E59FA6'//"#EB5773"//"#D13D59"
+  				return "#C4304C"//"#EB5773"//'#E59FA6'//"#EB5773"//"#D13D59"
   			} else if (d.CALL_TYPE == "919") {
   				return '#FFCC32'//'#FFE599'//'#6E7B8E'//"#869FBF"//"#6C85A5"
   			} else {
-  				return "#FF4F4F"//"#80A9D0"//"#DE8067"
+  				return "#C45187"//"#AD537D"//"#FF4F4F"//"#80A9D0"//"#DE8067"
   			}
   		})
   		.attr("r", 2);
@@ -102,11 +102,11 @@ var drawMap = function(selected_year,callsData) {
   		.style("opacity", .5)
   		.style("fill", function(d) {
   			if (d.CALL_TYPE == "915") {
-  				return "#EB5773"//'#E59FA6'//"#EB5773"//"#D13D59"
+  				return "#C4304C"//"#EB5773"//'#E59FA6'//"#EB5773"//"#D13D59"
   			} else if (d.CALL_TYPE == "919") {
   				return '#FFCC32'//'#FFE599'//'#6E7B8E'//"#869FBF"//"#6C85A5"
   			} else {
-  				return "#FF4F4F"//"#80A9D0"//"#DE8067"
+  				return "#C45187"//"#AD537D"//"#FF4F4F"//"#80A9D0"//"#DE8067"
   			}
   		})
   		.attr("r", 3.5);
@@ -275,10 +275,10 @@ function barchart() {
 	// color bands
 	if (toggle == "311") {
 		var color = d3.scale.ordinal()
-				.range(["#FF4F4F"]);
+				.range(["#B7447A"]);//"#FF4F4F"]);//#FF4F4F"]);
 	} else {
 		var color = d3.scale.ordinal()
-				.range(["#FFCC32", "#FFFF65", "#9E0A26", "#EB5773"]);
+				.range(["#F2BF25", "#FFFF7F", "#9E0A26", "#EB5773"]);
 	}
 
 	// use x-axis scale to set x-axis
