@@ -23,14 +23,18 @@
         Police issued 27,315 quality of life citations in 2014, the latest full year of data available. The violations break down as follows:
       </div>
 
-      <div class="violations-graph" ng-repeat="co in violationsData">
-            <div class="bar-title">{{co.violation}}</div>
-              <div class="bar-container">
-                <div class="violations-bar"
-                  ng-style="{ width: {{co.count/max*85}} + '%' }">
+      <div class="violations-chart">
+
+        <div class="violations-graph" ng-repeat="co in violationsData">
+              <div class="bar-title">{{co.violation}}</div>
+                <div class="bar-container">
+                  <div class="violations-bar"
+                    ng-style="{ width: {{co.count/max*84}} + '%' }">
+                  </div>
+                  <div class="violations-text {{co.count_text}}">{{co.count_text}}</div>
                 </div>
-                <div class="violations-text {{co.count_text}}">{{co.count_text}}</div>
-              </div>
+          </div>
+
         </div>
 
       <div class="credit">
