@@ -65,6 +65,7 @@ var updateInfo = function(year) {
 };
 
 var fillChart = function() {
+  d3.selectAll('rect').style("fill","#d3d3d3");
 	for (var n = 0; n <= Math.round(waffleData[i].over_ten_percent); n++) {
 		var value = n;
 		console.log(value);
@@ -74,6 +75,7 @@ var fillChart = function() {
 };
 
 var fillChart2 = function() {
+  // d3.selectAll('rect').style("fill","#d3d3d3");
 	for (var n = 0; n <= Math.round(waffleData[i].over_sixty_percent); n++) {
 		var value = n + 200;
 		console.log(value);
@@ -94,9 +96,9 @@ var tick = function() {
   fillChart2(years[i]);
   updateInfo(years[i]);
 
-  if (i == (years.length - 1)) {
-  	resetChart();
-  }
+  // if (i == (years.length - 1)) {
+  // 	resetChart();
+  // }
 
   i = (i + 1) % years.length;
   loop = setTimeout(tick, i == 0 ? 1700 : 1700);
