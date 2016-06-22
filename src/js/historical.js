@@ -58,20 +58,20 @@ function createCharts() {
 var years = ["2007-08","2008-09","2009-10","2010-11","2011-12","2012-13","2013-14","2014-15"];
 
 var updateInfo = function(year) {
-  document.querySelector(".info").innerHTML = `<strong>${year}</strong>`;
+  document.querySelector(".info-1").innerHTML = `<strong>${year}</strong>`;
+  document.querySelector(".info-2").innerHTML = `<strong>${year}</strong>`;
+  document.querySelector(".info-3").innerHTML = `<strong>${year}</strong>`;
 };
 
 var fillCharts = function() {
   d3.selectAll('rect').style("fill","#d3d3d3");
 	for (var n = 0; n <= Math.round(waffleData[i].over_ten_percent); n++) {
 		var value = n;
-		console.log(value);
 		var squareFill = document.getElementById(value);
 		d3.select(squareFill).style("fill", "lightskyblue");
 	};
 	for (var n = 0; n <= Math.round(waffleData[i].over_sixty_percent); n++) {
 		var value = n + 200;
-		console.log(value);
 		var squareFill = document.getElementById(value);
 		d3.select(squareFill).style("fill", "#87df87");
 	};
@@ -93,7 +93,7 @@ var tick = function() {
   // }
 
   i = (i + 1) % years.length;
-  loop = setTimeout(tick, i == 0 ? 1700 : 1700);
+  loop = setTimeout(tick, i == 0 ? 1200 : 1200);
 };
 
 createCharts();

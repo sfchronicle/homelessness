@@ -797,6 +797,10 @@ circle {
   margin: auto;
 }
 
+#historical-hed {
+  line-height: 1.6;
+}
+
 .historical-chart {
   font-family: "AntennaExtraLight";
   font-size: 11px;
@@ -831,5 +835,17 @@ circle {
   float: left;
   @media screen and (max-width: 710px) {
     width: 100%;
+  }
+}
+
+.desktop-only {
+  @media screen and (max-width: 710px) {
+    display: none;
+  }
+}
+
+.mobile-only {
+  @media screen and (min-width: 711px) {
+    display: none
   }
 }
