@@ -54,8 +54,6 @@ var setsALL = [ {sets: [0], label: "No diagnosis: 26.0%", size: 26.0, percent: 2
             {sets: [0,1,2,3], size: 0}
           ];
 
-console.log(width);
-console.log(height);
 var chart = venn.VennDiagram(width,height,padding,duration);
 d3.select("#vennbubbles").datum(setsALL).call(chart);
 var vennselect = d3.select("#vennbubbles")
@@ -109,11 +107,8 @@ vennselect.selectAll("g")
     .on("mouseover", function(d) {
        var new_label = [];
        for (var idx=0; idx < d.sets.length; idx++) {
-         console.log(idx);
-         console.log(sets_list[d.sets[idx]]);
          new_label.push(sets_list[d.sets[idx]]);
        }
-       console.log(new_label);
        bubblestooltip.html(`
          <div>${new_label}</div>
          <div>${d.percent}%</div>
