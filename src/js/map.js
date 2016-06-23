@@ -471,7 +471,9 @@ function barchart() {
   if (toggle == "911") {
 
    year.selectAll("rect")
-       .data(function(d) { return d.columnDetails; })
+       .data(function(d) {
+         return d.columnDetails;
+       })
      .enter().append("rect")
        .attr("width", x1.rangeBand())
        .attr("x", function(d) {
