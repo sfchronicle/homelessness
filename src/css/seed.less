@@ -806,7 +806,7 @@ circle {
   font-size: 11px;
   overflow: auto;
   width: 98%;
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto;
   @media @tablet {
     width: 90%;
@@ -823,9 +823,9 @@ circle {
   width: 250px;
   margin: 0 auto;
 
-  @media screen and (min-width: 711px) {
-    margin-left: 25px;
-    margin-right: 25px;
+  @media screen and (min-width: 769px) {
+    margin-left: calc(75/2)px;
+    margin-right: calc(75/2)px;
   }
 }
 
@@ -836,13 +836,13 @@ circle {
   padding-bottom: 35px;
 
   h4 {
-    margin-left: 25px;
-    margin-right: 25px;
+    margin-left: 1px; 
+    margin-right: 1px; 
     text-align: center;
     margin-top: 0;
   }
 
-  @media screen and (max-width: 710px) {
+  @media @tablet {
     width: 100%;
     h4 {
     line-height: 1.8;
@@ -850,14 +850,21 @@ circle {
   }
 }
 
+#historical-2 {
+  h4 {
+  margin-left: 10px;
+  margin-right: 10px;
+  }
+}
+
 .desktop-only {
-  @media screen and (max-width: 710px) {
+  @media @tablet {
     display: none;
   }
 }
 
 .mobile-only {
-  @media screen and (min-width: 711px) {
+  @media screen and (min-width: 769px) {
     display: none
   }
 }
