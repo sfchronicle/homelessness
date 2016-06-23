@@ -278,7 +278,7 @@ function barchart() {
 				.range(["#B7447A"]);//"#FF4F4F"]);//#FF4F4F"]);
 	} else {
 		var color = d3.scale.ordinal()
-				.range(["#F2BF25", "#FFFF7F", "#9E0A26", "#EB5773"]);
+				.range(["#FFFF7F", "#F2BF25", "#EB5773", "#9E0A26", ]);
 	}
 
 	// use x-axis scale to set x-axis
@@ -323,8 +323,8 @@ function barchart() {
   if (toggle == "911") {
     var yBegin;
     var innerColumns = {
-      "column1" : ["dispatched_sit_lie_calls", "sit_lie_citations_and_arrests"],
-      "column2" : ["dispatched_homeless_related_police_calls","homeless_related_citations_and_arrests"]
+      "column1" : ["sit_lie_citations_and_arrests", "dispatched_sit_lie_calls"],
+      "column2" : ["homeless_related_citations_and_arrests", "dispatched_homeless_related_police_calls"]
     }
 
     if (!barData[0].columnDetails) {

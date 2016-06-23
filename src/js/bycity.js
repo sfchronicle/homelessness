@@ -210,6 +210,14 @@ svg.selectAll(".dot")
       return color_function(d.state) || colors.fallback;
     })
     .on("mouseover", function(d) {
+      if (d.state == "HI") {
+        tooltip_cities.html(`
+            <div>State: <b>${d.state}</b><div class="swatch ${d.state}"></div></div>
+            <div>Total homeless population: <b>${d.total_homeless}</b></div>
+            <div>Homeless population per 100,000: <b>${d.homeless_norm}</b></div>
+            <div>Unsheltered homeless per 100,000: <b>${d.unsheltered_norm}</b></div>
+        `);
+      } else {
         tooltip_cities.html(`
             <div>County/city: <b>${d.coc}</b></div>
             <div>State: <b>${d.state}</b><div class="swatch ${d.state}"></div></div>
@@ -217,6 +225,7 @@ svg.selectAll(".dot")
             <div>Homeless population per 100,000: <b>${d.homeless_norm}</b></div>
             <div>Unsheltered homeless per 100,000: <b>${d.unsheltered_norm}</b></div>
         `);
+      }
         tooltip_cities.style("visibility", "visible");
     })
     .on("mousemove", function() {

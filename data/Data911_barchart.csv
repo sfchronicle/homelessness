@@ -1,4 +1,4 @@
-time_period,dispatched_sit_lie_calls,sit_lie_citations_and_arrests,dispatched_homeless_related_police_calls,homeless_related_citations_and_arrests
-3/2013-3/2014,13765,1809,35519,3674
-3/2014-3/2015,8708,858,44235,4394
-3/2015-3/2016,7722,551,53159,4489
+time_period,sit_lie_citations_and_arrests,dispatched_sit_lie_calls,homeless_related_citations_and_arrests,dispatched_homeless_related_police_calls
+3/2013-3/2014,1809,13765,3674,35519
+3/2014-3/2015,858,8708,4394,44235
+3/2015-3/2016,551,7722,4489,53159
