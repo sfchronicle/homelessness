@@ -250,8 +250,8 @@ function barchart() {
 		var width = 500 - margin.left - margin.right;
 		var height = 400 - margin.top - margin.bottom;
 	} else if (screen.width <= 768 && screen.width > 480) {
-		var width = 480 - margin.left - margin.right;
-		var height = 300 - margin.top - margin.bottom;
+		var width = 460 - margin.left - margin.right;
+		var height = 250 - margin.top - margin.bottom;
 	} else if (screen.width <= 480) {
 		var margin = {
 			top: 15,
