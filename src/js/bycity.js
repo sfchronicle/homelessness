@@ -233,6 +233,10 @@ svg.selectAll(".dot")
         return tooltip_cities
           .style("top",(d3.event.pageY+40)+"px")//(d3.event.pageY+40)+"px")
           .style("left",10+"px");
+      } else if (screen.width <= 1024 && screen.width > 480) {
+        return tooltip_cities
+          .style("top", (d3.event.pageY+20)+"px")
+          .style("left",(7*d3.event.pageX/10+10)+"px");
       } else {
         return tooltip_cities
           .style("top", (d3.event.pageY+20)+"px")
