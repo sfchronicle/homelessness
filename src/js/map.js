@@ -159,6 +159,7 @@ var tick = function() {
 tick();
 
 $("#map311").click(function() {
+  pymChild.sendHeight();
 	$("#map311").addClass("selected");
 	$("#map311-info").addClass("selected");
 	$("#map911").removeClass("selected");
@@ -174,6 +175,7 @@ $("#map311").click(function() {
 });
 
 $("#map911").click(function() {
+  pymChild.sendHeight();
 	$("#map311").removeClass("selected");
 	$("#map311-info").removeClass("selected");
 	$("#map911").addClass("selected");
