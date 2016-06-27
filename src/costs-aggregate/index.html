@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+  <head>
+    <script type="text/javascript" src="http://projects.sfchronicle.com/shared/js/pym.min.js"></script>
+    <title><%= json.project.title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <%= t.include("partials/_head.html") %>
+  </head>
+  <body>
+
+    <responsive-child class="costs-container">
+
+      <div ng-controller="CostsAggregateController" ng-app="costs-aggregate" id="costs-container">
+
+        <div class="hed">
+           The cost of emergency services for SF’s homeless population
+        </div>
+
+        <div class="chatter">
+          San Francisco’s Department of Public Health provided medical, mental health or substance abuse services to 9,975 homeless individuals during the last fiscal year. About 75 percent of them used emergency health services, costing the city more than $150 million. A small subset of the population – the 338 people accessing the most emergency care – raked up particularly high costs.
+        </div>
+
+        <div class="button-container">
+
+          <div class="button totals"
+          ng-click="selectedTable = 'totals'; sortTable('order2')"
+          ng-class="{active:selectSort == 'order2',
+                    up: lastSort == 'order2' && sortOrder == -1,
+                    down: lastSort == 'order2' && sortOrder == 1 }">Total costs</div>
+          <div class="button avgs"
+          ng-click="selectedTable = 'avgs'; sortTable('order1')"
+          ng-class="{active:selectSort == 'order1',
+                    up: lastSort == 'order1' && sortOrder == -1,
+                    down: lastSort == 'order1' && sortOrder == 1 }">Per person</div>
+
+        </div>
+
+        <div class="outer-chart">
+
+          <div class="totals-chart" ng-repeat="co in costsData"
+          ng-class="{'active':selectedTable == 'totals'}">
+            <div class="bar-title">{{co.group}} ({{co.num}})</div>
+              <div class="bar-container">
+                <div class="totals-bar sa"
+                  ng-style="{ width: {{co.totals/max_cost_total*85}} + '%' }">
+                </div>
+                <div class="totals-text {{co.group}}">${{co.totals_txt}}M</div>
+              </div>
+          </div>
+
+          <div class="avgs-chart" ng-repeat="co in costsData"
+          ng-class="{'active':selectedTable == 'avgs'}">
+            <div class="bar-title">{{co.group}} ({{co.num}})</div>
+              <div class="bar-container">
+                <div class="avgs-bar sa"
+                  ng-style="{ width: {{co.totals/max_avg_total/co.num*85}} + '%' }">
+                </div>
+                <div class="totals-text {{co.group}}">${{co.avgs_text}}K</div>
+              </div>
+          </div>
+        </div>
+
+        <!-- </div> -->
+
+        <div class="credit">
+          <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
+          <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
+        </div>
+        <div class="source">About the data: Long-term homeless are those who have been on the street for longer than 10 years, either intermitently or continuously. The high risk homeless are the 338 homeless individuals who used the most medical, mental health or substance abuse emergency services. Homeless elders are 60 or older. Young homeless are those between 18 and 24 years old.</div>
+        <div class="source padded">
+          <em>Source: Department of Public Health’s Coordinated Care Management System data</em>
+        </div>
+
+    </div>
+
+    </responsive-child>
+
+    <script>
+      var costsData = <%= JSON.stringify(csv.financial_data_aggregate) %>;
+      var pymChild = new pym.Child({polling: 500});
+    </script>
+
+    <script src="../costs_aggregate_app.js" async></script>
+    <%= t.include("partials/_foot.html") %>
+    <%= t.include("partials/_helloSFC.html") %>
+  </body>
+</html>

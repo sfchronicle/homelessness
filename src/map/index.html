@@ -71,8 +71,8 @@
 
     <script>
       if (screen.width <= 480) {
-        var calls311DataMobile = <%= JSON.stringify(csv.EncampmentCalls_half) %>;
-        var calls911DataMobile = <%= JSON.stringify(csv.Data911_map_half) %>;
+        var calls311DataMobile = <%= JSON.stringify(csv.EncampmentCalls_quarter) %>;
+        var calls911DataMobile = <%= JSON.stringify(csv.Data911_map_quarter) %>;
       } else {
         var calls311DataDesktop = <%= JSON.stringify(csv.EncampmentCalls) %>;
         var calls911DataDesktop = <%= JSON.stringify(csv.Data911_map) %>;
