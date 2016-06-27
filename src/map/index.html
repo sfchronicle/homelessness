@@ -70,8 +70,13 @@
     </responsive-child>
 
     <script>
-      var calls311Data = <%= JSON.stringify(csv.EncampmentCalls) %>;
-      var calls911Data = <%= JSON.stringify(csv.Data911_map) %>;
+      if (screen.width <= 480) {
+        var calls311DataMobile = <%= JSON.stringify(csv.EncampmentCalls_half) %>;
+        var calls911DataMobile = <%= JSON.stringify(csv.Data911_map_half) %>;
+      } else {
+        var calls311DataDesktop = <%= JSON.stringify(csv.EncampmentCalls) %>;
+        var calls911DataDesktop = <%= JSON.stringify(csv.Data911_map) %>;
+      }
       var barchart311Data = <%= JSON.stringify(csv.Data311_barchart) %>;
       var barchart911Data = <%= JSON.stringify(csv.Data911_barchart) %>;
       var pymChild = new pym.Child({polling: 500});

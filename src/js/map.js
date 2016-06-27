@@ -15,6 +15,16 @@ var margin = {
   left: 40
 };
 
+if (screen.width <= 480) {
+  console.log("loading mobile data");
+  var calls311Data = calls311DataMobile;
+  var calls911Data = calls911DataMobile;
+} else {
+  console.log("loading desktop data");
+  var calls311Data = calls311DataDesktop;
+  var calls911Data = calls911DataDesktop;
+}
+
 //get access to Leaflet and the map
 var element = document.querySelector("leaflet-map");
 var L = element.leaflet;
@@ -160,6 +170,7 @@ tick();
 
 $("#map311").click(function() {
   pymChild.sendHeight();
+  console.log("updated height");
 	$("#map311").addClass("selected");
 	$("#map311-info").addClass("selected");
 	$("#map911").removeClass("selected");
@@ -176,6 +187,7 @@ $("#map311").click(function() {
 
 $("#map911").click(function() {
   pymChild.sendHeight();
+  console.log("updated height");
 	$("#map311").removeClass("selected");
 	$("#map311-info").removeClass("selected");
 	$("#map911").addClass("selected");
