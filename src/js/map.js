@@ -170,7 +170,7 @@ tick();
 
 $("#map311").click(function() {
   pymChild.sendHeight();
-  console.log("updated height");
+  // console.log("updated height");
 	$("#map311").addClass("selected");
 	$("#map311-info").addClass("selected");
 	$("#map911").removeClass("selected");
@@ -187,7 +187,7 @@ $("#map311").click(function() {
 
 $("#map911").click(function() {
   pymChild.sendHeight();
-  console.log("updated height");
+  // console.log("updated height");
 	$("#map311").removeClass("selected");
 	$("#map311-info").removeClass("selected");
 	$("#map911").addClass("selected");
@@ -274,7 +274,12 @@ function barchart() {
 			left: 55
 		};
 		var width = 310 - margin.left - margin.right;
-		var height = 220 - margin.top - margin.bottom;
+    if (toggle == "311") {
+      var height = 320 - margin.top - margin.bottom;
+    } else {
+      var height = 220 - margin.top - margin.bottom;
+    }
+
 	}
 
 	// x-axis scale
