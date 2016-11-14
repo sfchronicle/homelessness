@@ -1,0 +1,31 @@
+
+.outer-quote {
+  background: lighten(@light-gray,20%);
+  padding: 30px;
+  height: 270px;
+  .fa-quote-right {
+    padding-left: 10px;
+  }
+  .fa-quote-left {
+    padding-right: 10px;
+  }
+  .fa {
+    color: lighten(#66101F,5%);
+  }
+  @media @mobile {
+    height: 360px;
+    padding: 20px;
+  }
+}
+.quote {
+  font-size: 30px;
+  font-family: @block-graphics;
+  font-style: italic;
+  @media @mobile {
+    font-size: 20px;
+  }
+}
+.quote-date {
+  padding-top: 20px;
+  font-family: @bold-graphics;
+}
