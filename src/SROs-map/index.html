@@ -12,7 +12,13 @@
 
       <div class="outer">
         <div class="hed">Properties with the most building code violations</div>
-        <div class="chatter">Out of all supportive housing sites overseen by the Human Services Agency, the Crosby hotel had by far the most building code violations between 2015 and August of 2016. The number of violations has decreased this year, suggesting that Episcopal Community Services has amped up its efforts to maintain the residential hotel, which is among the most difficult in its portfolio. The number of violations could indicate both tenant frustration and building maintenance concerns.<p>* These properties recently transitioned to supportive housing. Many of the violations were issued prior to becoming supportive housing.</p></div>
+        <div class="chatter mapchatter">Out of all supportive housing sites overseen by the Human Services Agency, the Crosby hotel had by far the most building code violations between 2015 and August of 2016. The number of violations has decreased this year, suggesting that Episcopal Community Services has amped up its efforts to maintain the residential hotel, which is among the most difficult in its portfolio. The number of violations could indicate both tenant frustration and building maintenance concerns.<p>* These properties recently transitioned to supportive housing. Many of the violations were issued prior to becoming supportive housing.</p></div>
+
+        <div class="legend">
+          <div class="legend-entry"><div class="crcs-swath"><div class="legend-text">HSA Supportive Housing</div></div></div>
+          <div class="legend-entry"><div class="others-swath"><div class="legend-text">All other properties</div></div></div>
+        </div>
+
         <div class="aspect-ratio-outer">
           <div class="aspect-ratio-inner">
 
@@ -22,7 +28,6 @@
 
           </div>
         </div>
-        <div class="tooltip-srosmap"></div>
         <div class="credit">
           <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
           <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
@@ -31,6 +36,7 @@
         <div class="source">About the data: <em>The data covers all building code violations from 2015 through August of 2016. Due to limitations of DBI’s database, the number of violations are likely inflated for all properties in the city and should be viewed as estimates.</em></div>
 
       </div>
+      <div class="tooltip-srosmap"></div>
 
     <script>
       var srosMapData = <%= JSON.stringify(csv.DBI_Vios) %>;

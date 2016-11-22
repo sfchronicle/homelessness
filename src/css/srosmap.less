@@ -10,3 +10,45 @@
     font-family: @med-graphics;
   }
 }
+
+.legend {
+  font-family: @block-graphics;
+  font-size: 14px;
+  //text-align: center;
+  // border: 1px solid @black;
+  // border-radius: 6px;
+  width: 250px;
+  margin: auto;
+  margin-bottom: 10px;
+  @media @mobile {
+    margin-bottom: 15px;
+  }
+  padding: 5px;
+  .legend-entry {
+    display: inline-block;
+    width: 300px;
+    text-align: center;
+  }
+  .crcs-swath, .others-swath {
+    height: 14px;
+    width: 14px;
+    //margin: 4px auto;
+    margin-left: 10px;
+    margin-bottom: 5px;
+  }
+  .crcs-swath {
+    background: #C4304C;
+  }
+  .others-swath {
+    background: #6C85A5;
+  }
+  .legend-text {
+    width: 250px;
+    padding-left: 20px;
+    vertical-align: text-top;
+  }
+}
+
+.mapchatter {
+  margin-bottom: 0px !important;
+}
