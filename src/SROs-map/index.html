@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= json.project.title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <%= t.include("partials/_head.html") %>
+  </head>
+  <body is="responsive-body">
+
+      <div class="outer">
+        <div class="hed">Properties with the most building code violations</div>
+        <div class="chatter">Out of all supportive housing sites overseen by the Human Services Agency, the Crosby hotel had by far the most building code violations between 2015 and August of 2016. The number of violations has decreased this year, suggesting that Episcopal Community Services has amped up its efforts to maintain the residential hotel, which is among the most difficult in its portfolio. The number of violations could indicate both tenant frustration and building maintenance concerns.<p>* These properties recently transitioned to supportive housing. Many of the violations were issued prior to becoming supportive housing.</p></div>
+        <div class="aspect-ratio-outer">
+          <div class="aspect-ratio-inner">
+
+            <leaflet-map zoom=12 id="sros-map">
+              <tile-layer layer="cartoPositron"></tile-layer>
+            </leaflet-map>
+
+          </div>
+        </div>
+        <div class="tooltip-srosmap"></div>
+        <div class="credit">
+          <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
+          <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
+        </div>
+        <div class="source">Source: <em>Department of Building Inspections</em></div>
+        <div class="source">About the data: <em>The data covers all building code violations from 2015 through August of 2016. Due to limitations of DBI’s database, the number of violations are likely inflated for all properties in the city and should be viewed as estimates.</em></div>
+
+      </div>
+
+    <script>
+      var srosMapData = <%= JSON.stringify(csv.DBI_Vios) %>;
+    </script>
+    <script src="http://projects.sfchronicle.com/shared/js/responsive-child.js"></script>
+
+    <script src="../srosmap_app.js" async></script>
+    <%= t.include("partials/_foot.html") %>
+    <%= t.include("partials/_helloSFC.html") %>
+  </body>
+</html>

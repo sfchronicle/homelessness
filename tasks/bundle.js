@@ -23,7 +23,8 @@ module.exports = function(grunt) {
       "./src/js/violations.js": "build/violations_app.js",
       "./src/js/historical.js": "build/historical_app.js",
       "./src/js/costs-aggregate.js": "build/costs_aggregate_app.js",
-      "./src/js/srostext.js": "build/srostext_app.js"
+      "./src/js/srostext.js": "build/srostext_app.js",
+      "./src/js/srosmap.js": "build/srosmap_app.js"
     };
 
     async.forEachOf(seeds, function(dest, src, c) {

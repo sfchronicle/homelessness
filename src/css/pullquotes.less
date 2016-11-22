@@ -1,31 +1,62 @@
+.outer {
+  position: relative;
+}
+
+// .huge-quote-container {
+//   position: relative;
+//   float: left;
+//   width: 120px;
+//   height: 50px;
+// }
+
+.huge-quote {
+  line-height:1;
+  font-family: @body;
+  font-size: 200px;
+  color: lighten(#66101F,5%);
+  position: absolute;
+  top: 0px;
+  left: 20px;
+  // height: 100px;
+  // width: 100px;
+}
+.small-quote {
+  font-family: @body;
+  color: lighten(#66101F,5%);
+}
 
 .outer-quote {
   background: lighten(@light-gray,20%);
   padding: 30px;
-  height: 270px;
-  .fa-quote-right {
-    padding-left: 10px;
-  }
-  .fa-quote-left {
-    padding-right: 10px;
-  }
-  .fa {
-    color: lighten(#66101F,5%);
-  }
+  height: 350px;
   @media @mobile {
     height: 360px;
     padding: 20px;
   }
+  margin-bottom: 10px !important;
 }
 .quote {
   font-size: 30px;
   font-family: @block-graphics;
   font-style: italic;
+  width: 90%;
+  float: right;
   @media @mobile {
     font-size: 20px;
   }
+  text-align: right;
 }
 .quote-date {
   padding-top: 20px;
-  font-family: @bold-graphics;
+  font-family: @block-graphics;
+  text-align: right;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  // top: 240px;
+  // float: right;
+}
+
+.outer-quote-credit {
+  margin-top: 0 !important;
 }
