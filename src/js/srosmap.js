@@ -43,8 +43,6 @@ srosMapData.forEach(function(d) {
 
 var srosDataShort = srosMapData;
 
-console.log(srosDataShort);
-
 var svg = d3.select("#sros-map").select("svg"),
 g = svg.append("g");
 
@@ -54,7 +52,7 @@ var feature = g.selectAll("circle")
   // .style("stroke", "black")
   .style("opacity", .8)
   .style("fill", function(d) {
-    if (d.CNC == "Yes") {
+    if (d.SuppHsg == "Yes") {
       return "#C4304C"
     } else {
       return "#6C85A5"
@@ -62,7 +60,11 @@ var feature = g.selectAll("circle")
     // return "#C4304C"//"#EB5773"//'#E59FA6'//"#EB5773"//"#D13D59"
   })
   .attr("r", function(d) {
-    return (d.DBI_VIOLATIONS/10+1);
+    if (screen.width <= 480) {
+      return (d.DBI_VIOLATIONS/20+0.5);
+    } else {
+      return (d.DBI_VIOLATIONS/10+1);
+    }
   })
   .on('mouseover', function(d,flag) {
     var html_str = tooltip_function(d);

@@ -17,6 +17,10 @@
   position: absolute;
   top: 0px;
   left: 20px;
+  @media @mobile {
+    font-size: 150px;
+    left: 5px;
+  }
   // height: 100px;
   // width: 100px;
 }
@@ -28,21 +32,23 @@
 .outer-quote {
   background: lighten(@light-gray,20%);
   padding: 30px;
-  height: 350px;
+  height: 290px;
   @media @mobile {
-    height: 360px;
+    height: 400px;
     padding: 20px;
   }
   margin-bottom: 10px !important;
 }
 .quote {
-  font-size: 30px;
+  font-size: 25px;
   font-family: @block-graphics;
   font-style: italic;
   width: 90%;
   float: right;
   @media @mobile {
-    font-size: 20px;
+    font-size: 18px;
+    display: inline-block;
+    width: 82%;
   }
   text-align: right;
 }
@@ -53,6 +59,10 @@
   position: absolute;
   bottom: 30px;
   right: 30px;
+  @media @mobile {
+    font-size: 18px;
+    bottom: 20px;
+  }
   // top: 240px;
   // float: right;
 }

@@ -24,4 +24,4 @@ function changeText() {
 }
 
 changeText();
-setInterval(changeText,6000);
+setInterval(changeText,8000);
