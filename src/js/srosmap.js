@@ -41,16 +41,26 @@ srosMapData.forEach(function(d) {
 								d.Long)
 });
 
-var srosDataShort = srosMapData;
+// var srosDataShort = srosMapData;
 
-var svg = d3.select("#sros-map").select("svg"),
-g = svg.append("g");
+var svgMap = d3.select("#sros-map").select("svg"),
+g = svgMap.append("g");
 
-var feature = g.selectAll("circle")
-  .data(srosDataShort)
+var feature = g.selectAll("dot")
+  .data(srosMapData)
   .enter().append("circle")
   // .style("stroke", "black")
-  .style("opacity", .8)
+  .style("opacity", function(d) {
+    if (d.SuppHsg == "Yes") {
+      if (screen.width <=480) {
+        return 1
+      } else {
+        return 0.8;
+      }
+    } else {
+      return 0.6
+    }
+  })
   .style("fill", function(d) {
     if (d.SuppHsg == "Yes") {
       return "#C4304C"
@@ -73,20 +83,15 @@ var feature = g.selectAll("circle")
     tooltip.style("visibility", "visible");
   })
   .on("mousemove", function() {
-    // if (screen.width <= 480) {
-    //   return federal
-    //     .style("top",(d3.event.pageY+10)+"px")//(d3.event.pageY+40)+"px")
-    //     .style("left",((d3.event.pageX)/3+40)+"px");
-    // } else if (screen.width <= 670) {
-    //   return federal_tooltip
-    //     .style("top",(d3.event.pageY+10)+"px")//(d3.event.pageY+40)+"px")
-    //     .style("left",((d3.event.pageX)/2+50)+"px");
-    // } else {
+    if (screen.width <= 480) {
+      return tooltip
+        .style("top",(d3.event.pageY+40)+"px")//(d3.event.pageY+40)+"px")
+        .style("left",10+"px");
+    } else {
       return tooltip
         .style("top", (d3.event.pageY+16)+"px")
         .style("left",(d3.event.pageX-50)+"px");
-
-    // }
+    }
   })
   .on("mouseout", function(){
     // if (screen.width <= 480) {
@@ -95,6 +100,37 @@ var feature = g.selectAll("circle")
       return tooltip.style("visibility", "hidden");
     // }
   });
+
+if (screen.width <= 480) {
+
+  var node = svgMap.selectAll(".circle")
+      .data(srosMapData)
+      .enter().append("g")
+      .attr("class","node");
+
+  node.append("text")
+      .style("fill","black")
+      .style("font-family","AntennaExtraLight")
+      .style("font-size","14px")
+      .style("font-style","italic")
+      .style("visibility",function(d) {
+        if (d.NAME == "Crosby Hotel") {
+          return "visible"
+        } else {
+          return "hidden"
+        }
+      })
+      .attr("transform",
+      function(d) {
+        return "translate("+
+          (map.latLngToLayerPoint(d.LatLng).x+10) +","+
+          map.latLngToLayerPoint(d.LatLng).y +")";
+        }
+      )
+      .text(function(d) {
+        return d.NAME
+      });
+}
 
 map.on("viewreset", update);
 update();
