@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= json.project.title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <%= t.include("partials/_head.html") %>
+  </head>
+  <body is="responsive-body">
+
+      <div class="outer jackie-encampment">
+        <div class="hed">311 complaints in SF, 2011 - 2016</div>
+
+
+        <div class="toggle-control">
+        <form>
+            <hr>
+            <h2>Complaint type</h2>
+            <label>
+
+                <input id="encampment" class="toggle" type="checkbox" checked=""><span class="legend encampment"></span> Encampment
+            </label>
+            <label>
+
+                <input id="waste" class="toggle" type="checkbox" checked=""><span class="legend waste"></span> Human Waste
+            </label>
+            <label>
+
+                <input id="needle" class="toggle" type="checkbox" checked=""><span class="legend needle"></span> Needles
+            </label>
+            <hr>
+            <h2>Years</h2>
+            <select id="years" autocomplete="off">
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+            </select>
+        </form>
+    </div>
+
+        <div class="aspect-ratio-outer">
+          <div class="aspect-ratio-inner">
+
+            <leaflet-map zoom=12 id="complaints-map">
+              <tile-layer layer="cartoPositron"></tile-layer>
+            </leaflet-map>
+
+          </div>
+        </div>
+        <div class="credit">
+          <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
+          <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
+        </div>
+        <!-- <div class="source">Source: <em>Department of Building Inspections</em></div>
+        <div class="source">About the data: <em>The data covers all building code violations from 2015 through August 2016. Due to the limitations of DBI’s database, the violation numbers are likely inflated for all properties in the city and should be viewed as estimates.<p>* These properties recently transitioned to supportive housing. Many of the violations were issued before they became supportive housing.</p></em></div> -->
+
+      </div>
+      <!-- <div class="tooltip-srosmap"></div> -->
+
+    <script>
+      // var encampmentMapData = <%= JSON.stringify(csv.encampment_cleaned) %>;
+      // var wasteMapData = <%= JSON.stringify(csv.humanwaste_cleaned) %>;
+      // var needleMapData = <%= JSON.stringify(csv.nddle_cleaned) %>;
+      var allMapData = <%= JSON.stringify(csv.allcomplaints_cleaned) %>;
+    </script>
+    <script src="http://projects.sfchronicle.com/shared/js/responsive-child.js"></script>
+
+    <script src="../encampments_map_app.js" async></script>
+    <%= t.include("partials/_foot.html") %>
+    <%= t.include("partials/_helloSFC.html") %>
+  </body>
+</html>
