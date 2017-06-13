@@ -12,11 +12,12 @@
 
       <div class="outer jackie-encampment">
         <div class="hed">311 complaints in SF, 2011 - 2016</div>
+        <div class="chatter">Complaints about encampments, human waste and needles have steadily increased since 2011, both in total volume and as a proportion of all 311 cases.</div>
 
 
-        <div class="toggle-control">
+        <div class="jackie-toggle-control">
         <form>
-            <hr>
+            
             <h2>Complaint type</h2>
             <label>
 
@@ -30,7 +31,7 @@
 
                 <input id="needle" class="toggle" type="checkbox" checked=""><span class="legend needle"></span> Needles
             </label>
-            <hr>
+            
             <h2>Years</h2>
             <select id="years" autocomplete="off">
                 <option value="2011">2011</option>
@@ -54,19 +55,17 @@
         </div>
         <div class="credit">
           <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
-          <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
+          <div class="entry">Jackie Gu  &bull; <a href="mailto:jgu@sfchronicle.com">jgu@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/jqlngu" target="_blank">@jqlngu</a></div>
         </div>
-        <!-- <div class="source">Source: <em>Department of Building Inspections</em></div>
-        <div class="source">About the data: <em>The data covers all building code violations from 2015 through August 2016. Due to the limitations of DBI’s database, the violation numbers are likely inflated for all properties in the city and should be viewed as estimates.<p>* These properties recently transitioned to supportive housing. Many of the violations were issued before they became supportive housing.</p></em></div> -->
+        <div class="source">Source: <a href="https://data.sfgov.org/City-Infrastructure/311-Cases/vw6y-z8j6/data">311</a></div>
+        <div class="source">About the data: All cases that were clearly marked as duplicates or invalid were removed. 311 does not differentiate between human and animal waste, but the complaint type is categorized under "homeless concerns." </div> 
 
       </div>
       <!-- <div class="tooltip-srosmap"></div> -->
 
     <script>
-      // var encampmentMapData = <%= JSON.stringify(csv.encampment_cleaned) %>;
-      // var wasteMapData = <%= JSON.stringify(csv.humanwaste_cleaned) %>;
-      // var needleMapData = <%= JSON.stringify(csv.nddle_cleaned) %>;
-      var allMapData = <%= JSON.stringify(csv.allcomplaints_cleaned) %>;
+
+      var allMapData = <%= JSON.stringify(csv.alldata311_cleaned) %>;
     </script>
     <script src="http://projects.sfchronicle.com/shared/js/responsive-child.js"></script>
 

@@ -16,10 +16,11 @@ var map = element.map;
 
 // Disable drag and zoom handlers.
 // map.dragging.disable();
-map.touchZoom.disable();
+// map.touchZoom.disable();
 // map.doubleClickZoom.disable();
 map.scrollWheelZoom.disable();
 map.keyboard.disable();
+map.minZoom = 10;
 
 if (screen.width <= 480) {
   map.setView(new L.LatLng(37.75, -122.43), 11);
@@ -50,13 +51,14 @@ var feature = g.selectAll("circle")
 	}))
   	.enter().append("circle")
   	.attr("class", function (d) {
-  		return d.RequestID;
+  		return d.CategoryID;
   	})
   	.style("opacity", 0.4)
   	.style("fill", function (d) {
-  		if (d.RequestID == "encampment") {
+  		if (d.CategoryID == "encampment") {
   			return red;
-  		} else if (d.RequestID == "waste") {
+  		} else if (d.CategoryID == "waste") {
+  			// console.log("got waste");
   			return yellow;
   		} else {
   			return blue;
@@ -68,7 +70,6 @@ var feature = g.selectAll("circle")
           	(map.latLngToLayerPoint(d.LatLng).x) +","+
           	map.latLngToLayerPoint(d.LatLng).y +")";
     });
-
 
 
 function drawComplaints(complaintsData, year) {
@@ -87,15 +88,18 @@ function drawComplaints(complaintsData, year) {
 	  	}))
   		.enter().append("circle")
   		.attr("class", function (d) {
-  			return d.RequestID;
+  			return d.CategoryID;
   		})
   		.style("opacity", 0.4)
   		.style("fill", function (d) {
-  			if (d.RequestID == "encampment") {
+  			if (d.CategoryID == "encampment") {
+  				// console.log("got encampment")
   				return red;
-  			} else if (d.RequestID == "waste") {
+  			} else if (d.CategoryID == "waste") {
+  				console.log("got waste");
   				return yellow;
   			} else {
+  				// console.log("got needle");
   				return blue;
   			}
   	})
@@ -107,6 +111,21 @@ function drawComplaints(complaintsData, year) {
         	});
 
   	checkForToggle();
+
+  	map.on("zoomend", update);
+	update();
+	console.log("hi");
+
+function update() {
+	console.log("hello");
+	feature.attr("transform",
+	function(d) {
+		return "translate("+
+			map.latLngToLayerPoint(d.LatLng).x +","+
+			map.latLngToLayerPoint(d.LatLng).y +")";
+		}
+	)
+}
 }
 
     function checkForToggle () {
@@ -191,18 +210,18 @@ for (var i = 0; i < nodes.length; i++) {
 
 
 
-// map.on("viewreset", update);
-// update();
+map.on("zoomend", update);
+update();
 
-// function update() {
-// 	feature.attr("transform",
-// 	function(d) {
-// 		return "translate("+
-// 			map.latLngToLayerPoint(d.LatLng).x +","+
-// 			map.latLngToLayerPoint(d.LatLng).y +")";
-// 		}
-// 	)
-// }
+function update() {
+	feature.attr("transform",
+	function(d) {
+		return "translate("+
+			map.latLngToLayerPoint(d.LatLng).x +","+
+			map.latLngToLayerPoint(d.LatLng).y +")";
+		}
+	)
+}
 
 // show tooltip
 // var tooltip = d3.select("div.tooltip-srosmap");

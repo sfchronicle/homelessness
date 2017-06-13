@@ -1,29 +1,76 @@
 .jackie-encampment {
 
-.hed {
-  font-size: 100px;
-}
-
-.legend {
-  $size: 10px;
-  display: inline-block;
-  width: $size;
-  height: $size;
-  border: 1px solid rgba(#999, 0.8);
-  border-radius: 5px;
-
-  &::after {
-    position: absolute;
-    content: "|";
-    color: lightgray;
-    bottom: 0;
-    left: 18px;
+  .hed {
+    font-size: 24px;
+    margin-bottom: 1em;
   }
 
-}
+  .legend {
+    @size: 10px;
+    display: inline-block;
+    width: @size;
+    height: @size;
+    // border: 1px solid red;
+    border-radius: 5px;
 
-.legend .encampment {
-  background-color: white;
-}
+    &.encampment {  background-color: #EB5773; }
+    &.waste { background-color: #f9ac06; }
+    &.needle { background-color: #3068e0; }
+
+  }
+
+  .jackie-toggle-control {
+    display: block;
+    position: absolute;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 5;
+    margin-top: 2%;
+    margin-left: 82%;
+    text-align: left;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-family: "AntennaExtraLight";
+    @media @width600{
+      background-color: white;
+      color: black;
+      position: relative;
+      text-align: center;
+      margin: auto;
+    }
+  }
+
+
+  leaflet-map {
+    z-index: 1;
+    @media @mobile {
+      margin: auto;
+    }
+  }
+
+  label {
+    font-size: 14px;
+    display: block;
+    position: relative;
+  }
+
+  h2 {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 0px;
+    @media @width600 {
+      display: inline;
+      color: black;
+    }
+  }
+
+  .leaflet-control-zoom {
+    display: block !important;
+  }
+
+  .source {
+    font-size: 14px;
+    font-style: normal;
+  }
 
 }
