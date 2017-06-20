@@ -29,9 +29,8 @@ if (screen.width <= 480) {
 }
 
 /* Initialize the SVG layer */
-console.log(L);
 L.svg().addTo(map);
-
+// map._initPathRoot();
 
 
 var svgMap = d3.select("#complaints-map").select("svg");
@@ -40,25 +39,36 @@ var g = svgMap.append("g");
 // var allMapData = require('../encampments-map-2017/alldata311.json');
 
 /* Add a LatLng object to each item in each of the datasets */
-for (i = 1; i < 7; i++) {
-	var data = eval("data201" + i.toString());
-	data.forEach(function(d) {
-		d.LatLng = new L.LatLng(d.Latitude,
-								d.Longitude);
-		
-	});
-}
+
+window.onload = function(){
+  for (i = 1; i < 7; i++) {
+    d3.csv("http://extras.sfgate.com/editorial/election2016/homeless-data/encampments-311-data/data_311_201"+i.toString()+".csv", function(data){
+    // d3.csv("./assets/encampments-311-data/data_311_201"+i.toString()+".csv", function(data){
+
+    	// var data = eval("data201" + i.toString());
+    	data.forEach(function(d) {
+    		d.LatLng = new L.LatLng(d.Latitude,
+    								d.Longitude);
+
+    	});
+      setTimeout(() => drawData(data), 500);
+    });
+  }
+};
 // data2011.forEach(function(d) {
 // 		d.LatLng = new L.LatLng(d.Latitude,
 // 								d.Longitude);
-		
+//
 // });
+// drawData(data2011[0]);
 
+var feature;
 
-// default view upon initial load, 2011 data
+function drawData(data){
 
-	var feature = g.selectAll("circle")
-		.data(data2011)
+  // default view upon initial load, 2011 data
+  feature = g.selectAll("circle")
+  	.data(data)
   		.enter().append("circle")
   		.attr("class", function (d) {
   			return d.CategoryID;
@@ -80,16 +90,14 @@ for (i = 1; i < 7; i++) {
           		(map.latLngToLayerPoint(d.LatLng).x) +","+
           		map.latLngToLayerPoint(d.LatLng).y +")";
     	});
-
-
-
+}
 
 function drawComplaints(complaintsData) {
 
 	// clear prev year's data
 	g.selectAll("circle").remove();
 
-	var feature = g.selectAll("circle")
+	feature = g.selectAll("circle")
 	  	.data(complaintsData)
 	  		//console.log(d.YearOpened);
 

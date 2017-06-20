@@ -17,7 +17,7 @@
 
         <div class="jackie-toggle-control">
         <form>
-            
+
             <h2>Complaint type</h2>
             <label>
 
@@ -31,7 +31,7 @@
 
                 <input id="needle" class="toggle" type="checkbox" checked=""><span class="legend needle"></span> Needles
             </label>
-            
+
             <h2>Years</h2>
             <select id="years" autocomplete="off">
                 <option value="2011">2011</option>
@@ -58,19 +58,9 @@
           <div class="entry">Jackie Gu  &bull; <a href="mailto:jgu@sfchronicle.com">jgu@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/jqlngu" target="_blank">@jqlngu</a></div>
         </div>
         <div class="source">Source: <a href="https://data.sfgov.org/City-Infrastructure/311-Cases/vw6y-z8j6/data">311</a></div>
-        <div class="source">About the data: All cases that were clearly marked as duplicates or invalid were removed. 311 does not differentiate between human and animal waste, but the complaint type is categorized under "homeless concerns." </div> 
+        <div class="source">About the data: All cases that were clearly marked as duplicates or invalid were removed. 311 does not differentiate between human and animal waste, but the complaint type is categorized under "homeless concerns." </div>
 
       </div>
-      <!-- <div class="tooltip-srosmap"></div> -->
-
-    <script>
-      var data2011 = <%= JSON.stringify(csv.data_311_2011) %>;
-      var data2012 = <%= JSON.stringify(csv.data_311_2012) %>;
-      var data2013 = <%= JSON.stringify(csv.data_311_2013) %>;
-      var data2014 = <%= JSON.stringify(csv.data_311_2014) %>;
-      var data2015 = <%= JSON.stringify(csv.data_311_2015) %>;
-      var data2016 = <%= JSON.stringify(csv.data_311_2016) %>;
-    </script>
 
 
     <script src="http://projects.sfchronicle.com/shared/js/responsive-child.js"></script>
