@@ -64,9 +64,15 @@
       <!-- <div class="tooltip-srosmap"></div> -->
 
     <script>
-
-      var allMapData = <%= JSON.stringify(csv.alldata311_cleaned) %>;
+      var data2011 = <%= JSON.stringify(csv.data_311_2011) %>;
+      var data2012 = <%= JSON.stringify(csv.data_311_2012) %>;
+      var data2013 = <%= JSON.stringify(csv.data_311_2013) %>;
+      var data2014 = <%= JSON.stringify(csv.data_311_2014) %>;
+      var data2015 = <%= JSON.stringify(csv.data_311_2015) %>;
+      var data2016 = <%= JSON.stringify(csv.data_311_2016) %>;
     </script>
+
+
     <script src="http://projects.sfchronicle.com/shared/js/responsive-child.js"></script>
 
     <script src="../encampments_map_app.js" async></script>

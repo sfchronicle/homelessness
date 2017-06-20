@@ -33,59 +33,65 @@ L.svg().addTo(map);
 
 
 
-/* Add a LatLng object to each item in the dataset */
-allMapData.forEach(function(d) {
-		d.LatLng = new L.LatLng(d.Latitude,
-								d.Longitude);
-		
-});
-
-
 var svgMap = d3.select("#complaints-map").select("svg");
 var g = svgMap.append("g");
 
+// var allMapData = require('../encampments-map-2017/alldata311.json');
+
+/* Add a LatLng object to each item in each of the datasets */
+for (i = 1; i < 7; i++) {
+	var data = eval("data201" + i.toString());
+	data.forEach(function(d) {
+		d.LatLng = new L.LatLng(d.Latitude,
+								d.Longitude);
+		
+	});
+}
+// data2011.forEach(function(d) {
+// 		d.LatLng = new L.LatLng(d.Latitude,
+// 								d.Longitude);
+		
+// });
+
+
 // default view upon initial load, 2011 data
-var feature = g.selectAll("circle")
-	.data(allMapData.filter(function (d) {
-	  	return (d.YearOpened == 2011);
-	}))
-  	.enter().append("circle")
-  	.attr("class", function (d) {
-  		return d.CategoryID;
-  	})
-  	.style("opacity", 0.4)
-  	.style("fill", function (d) {
-  		if (d.CategoryID == "encampment") {
-  			return red;
-  		} else if (d.CategoryID == "waste") {
-  			// console.log("got waste");
-  			return yellow;
-  		} else {
-  			return blue;
-  		}
-  	})
-  	.attr("r", 2)
-  	.attr("transform", function(d) {
-    	return "translate("+
-          	(map.latLngToLayerPoint(d.LatLng).x) +","+
-          	map.latLngToLayerPoint(d.LatLng).y +")";
-    });
+
+	var feature = g.selectAll("circle")
+		.data(data2011)
+  		.enter().append("circle")
+  		.attr("class", function (d) {
+  			return d.CategoryID;
+  		})
+  		.style("opacity", 0.4)
+  		.style("fill", function (d) {
+  			if (d.CategoryID == "encampment") {
+  				return red;
+  			} else if (d.CategoryID == "waste") {
+  				// console.log("got waste");
+  				return yellow;
+  			} else {
+  				return blue;
+  			}
+  		})
+  		.attr("r", 2)
+  		.attr("transform", function(d) {
+    		return "translate("+
+          		(map.latLngToLayerPoint(d.LatLng).x) +","+
+          		map.latLngToLayerPoint(d.LatLng).y +")";
+    	});
 
 
-function drawComplaints(complaintsData, year) {
+
+
+function drawComplaints(complaintsData) {
 
 	// clear prev year's data
 	g.selectAll("circle").remove();
 
 	var feature = g.selectAll("circle")
-	  	.data(complaintsData.filter(function (d) {
+	  	.data(complaintsData)
 	  		//console.log(d.YearOpened);
-	  		if (year != "all") {
-	  			return d.YearOpened == year;
-	  		} else {
-	  			return d;
-	  		}
-	  	}))
+
   		.enter().append("circle")
   		.attr("class", function (d) {
   			return d.CategoryID;
@@ -96,7 +102,7 @@ function drawComplaints(complaintsData, year) {
   				// console.log("got encampment")
   				return red;
   			} else if (d.CategoryID == "waste") {
-  				console.log("got waste");
+  				// console.log("got waste");
   				return yellow;
   			} else {
   				// console.log("got needle");
@@ -114,18 +120,16 @@ function drawComplaints(complaintsData, year) {
 
   	map.on("zoomend", update);
 	update();
-	console.log("hi");
 
-function update() {
-	console.log("hello");
-	feature.attr("transform",
-	function(d) {
-		return "translate("+
-			map.latLngToLayerPoint(d.LatLng).x +","+
-			map.latLngToLayerPoint(d.LatLng).y +")";
-		}
-	)
-}
+	function update() {
+		feature.attr("transform",
+		function(d) {
+			return "translate("+
+				map.latLngToLayerPoint(d.LatLng).x +","+
+				map.latLngToLayerPoint(d.LatLng).y +")";
+			}
+		)
+	}
 }
 
     function checkForToggle () {
@@ -145,31 +149,7 @@ function update() {
       }
     };
 
-  // 	function redrawSubset(subset) {
-  //   	path.pointRadius(2);// * scale);
 
-  //   	if (App.dataView !== 'all') {
-  //     		subset = subset.filter(function (d) {
-  //       		return new Date( d.properties.date ).getFullYear() === parseInt( App.dataView );
-  //     		});
-  //   	}
-
-
-  
-  //   	var points = g.selectAll('path')
-  //                 .data(subset, function (d) {
-  //                     return d.id;
-  //                 });
-  //   points.enter().append('path');
-  //   points.exit().remove();
-  //   points.attr('d', path);
-  //   points.attr('class', function(d) { return d.properties.kind; });
-
-  //   points.style('fill-opacity', function (d) {
-  //     if (d.group) {
-  //       return (d.group * 0.1) + 0.2;
-  //     }
-  //   });
 
 
   //   console.log('updated at  ' + new Date().setTime(new Date().getTime() - start.getTime()) + ' ms ');
@@ -181,7 +161,9 @@ function update() {
 
 function handleChange (e) {
     var option   = e.target.options[e.target.selectedIndex];
-    drawComplaints(allMapData, option.value);
+    var data = eval("data" + option.value);
+    // console.log(data);
+    drawComplaints(data);
 
 }
 
