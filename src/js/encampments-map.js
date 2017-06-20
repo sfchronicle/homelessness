@@ -29,6 +29,7 @@ if (screen.width <= 480) {
 }
 
 /* Initialize the SVG layer */
+console.log(L);
 L.svg().addTo(map);
 
 
