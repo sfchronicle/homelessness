@@ -1,5 +1,20 @@
 .jackie-encampment {
 
+  .credit {
+    padding-top: 20px;
+  }
+
+  #complaints-map {
+    height: 800px;
+    width: 100%;
+    z-index: 1;
+    @media @mobile {
+      height: 450px;
+      width: 90%;
+      margin: auto;
+    }
+  }
+
   .hed {
     font-size: 24px;
     margin-bottom: 1em;
@@ -18,18 +33,41 @@
     &.needle { background-color: #539ecd; }
 
   }
+  .select-container {
+    position: relative;
+    text-align: center;
+    padding-bottom: 30px;
+    @media @mobile {
+      padding-bottom: 20px;
+    }
+    #years, .select-text {
+      font-family: @block-graphics;
+      display: inline-block;
+    }
+    .select-text {
+      padding-right: 5px;
+      @media @mobile {
+        font-size: 16px;
+      }
+    }
+    #years {
+      width: 150px;
+      font-size: 16px;
+      font-family: @med-graphics;
+    }
+  }
 
   .jackie-toggle-control {
     display: block;
     position: absolute;
     color: white;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 5;
     margin-top: 2%;
-    margin-left: 82%;
+    margin-left: 75%;
     text-align: left;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 20px;
     font-family: "AntennaExtraLight";
     @media @width600{
       background-color: white;
@@ -37,7 +75,43 @@
       position: relative;
       text-align: center;
       margin: auto;
-      
+      padding-top: 0;
+    }
+    .complaint-label {
+      padding-bottom: 2px;
+      border-bottom: 2px solid white;
+      font-family: @med-graphics;
+      margin-bottom: 10px;
+      @media @mobile {
+        font-size: 16px;
+        width: 90%;
+        margin: auto;
+        border-bottom: 1px solid @light-gray;
+        margin-bottom: 5px;
+      }
+    }
+    .icon-container {
+      display: block;
+      @media @mobile {
+        display: inline-block;
+      }
+    }
+    .icon-img {
+      width: 15px;
+      @media @mobile {
+        width: 12px;
+      }
+      img {
+        width: 100%;
+      }
+      margin-right: 5px;
+    }
+    .icon-label {
+      font-size: 14px;
+      font-family: @block-graphics;
+    }
+    .icon-img, .icon-label {
+      display: inline-block;
     }
   }
 
@@ -55,15 +129,15 @@
     position: relative;
   }
 
-  h2 {
-    color: white;
-    font-size: 16px;
-    margin-bottom: 0px;
-    @media @width600 {
-      display: inline;
-      color: black;
-    }
-  }
+  // h2 {
+  //   color: white;
+  //   font-size: 16px;
+  //   margin-bottom: 0px;
+  //   @media @width600 {
+  //     display: inline;
+  //     color: black;
+  //   }
+  // }
 
   .leaflet-control-zoom {
     display: block !important;

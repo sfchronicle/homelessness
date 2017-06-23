@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <%= t.include("partials/_head.html") %>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
   </head>
   <body is="responsive-body">
 
@@ -15,53 +17,57 @@
         <div class="chatter">Complaints about encampments, human waste and needles have steadily increased since 2011, both in total volume and as a proportion of all 311 cases.</div>
 
 
+        <div class="select-container">
+          <div class="select-text">Pick a year: </div>
+          <select id="years" autocomplete="off">
+              <option value="2011">2011</option>
+              <option value="2012">2012</option>
+              <option value="2013">2013</option>
+              <option value="2014">2014</option>
+              <option value="2015">2015</option>
+              <option value="2016">2016</option>
+          </select>
+        </div>
+
         <div class="jackie-toggle-control">
-        <form>
-
-            <h2>Complaint type</h2>
-            <label>
-
-                <input id="encampment" class="toggle" type="checkbox" checked=""><span class="legend encampment"></span> Encampment
-            </label>
-            <label>
-
-                <input id="waste" class="toggle" type="checkbox" checked=""><span class="legend waste"></span> Human Waste
-            </label>
-            <label>
-
-                <input id="needle" class="toggle" type="checkbox" checked=""><span class="legend needle"></span> Needles
-            </label>
-
-            <h2>Years</h2>
-            <select id="years" autocomplete="off">
-                <option value="2011">2011</option>
-                <option value="2012">2012</option>
-                <option value="2013">2013</option>
-                <option value="2014">2014</option>
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-            </select>
-        </form>
-    </div>
+          <div class="complaint-label">Complaint type</div>
+          <div class="icon-container">
+            <div class="icon-img">
+              <img src="../assets/icons/marker-icon-2x-green.png"></img>
+            </div>
+            <div class="icon-label">Encampment</div>
+          </div>
+          <div class="icon-container">
+            <div class="icon-img">
+              <img src="../assets/icons/marker-icon-2x-yellow.png"></img>
+            </div>
+            <div class="icon-label">Human waste</div>
+          </div>
+          <div class="icon-container">
+            <div class="icon-img">
+              <img src="../assets/icons/marker-icon-2x-blue.png"></img>
+            </div>
+            <div class="icon-label">Needles</div>
+          </div>
+        </div>
 
         <div class="aspect-ratio-outer">
           <div class="aspect-ratio-inner">
 
-            <leaflet-map zoom=12 id="complaints-map">
-              <tile-layer layer="cartoPositron"></tile-layer>
-            </leaflet-map>
+            <div id="complaints-map">
 
           </div>
         </div>
         <div class="credit">
-          <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
+          <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
           <div class="entry">Jackie Gu  &bull; <a href="mailto:jgu@sfchronicle.com">jgu@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/jqlngu" target="_blank">@jqlngu</a></div>
+          <div class="entry">Joaquin Palomino  &bull; <a href="mailto:jpalomino@sfchronicle.com">jpalomino@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/JoaquinPalomino" target="_blank">@JoaquinPalomino</a></div>
         </div>
         <div class="source">Source: <a href="https://data.sfgov.org/City-Infrastructure/311-Cases/vw6y-z8j6/data">311</a></div>
         <div class="source">About the data: All cases that were clearly marked as duplicates or invalid were removed. 311 does not differentiate between human and animal waste, but the complaint type is categorized under "homeless concerns." </div>
 
       </div>
-
+    </div>
 
     <script src="http://projects.sfchronicle.com/shared/js/responsive-child.js"></script>
 
