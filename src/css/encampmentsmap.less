@@ -2,6 +2,14 @@
 
 .jackie-encampment {
 
+  .hed {
+    font-family: @med-graphics;
+    // font-family: @body-bold;
+  }
+  // .chatter {
+  //   font-family: @body;
+  // }
+
   .instructions {
     font-family: @block-graphics;
     font-size: 14px;
@@ -136,6 +144,7 @@
       display: block;
       @media @mobile {
         display: inline-block;
+        padding-right: 6px;
       }
     }
     .icon-img {
@@ -147,6 +156,9 @@
         width: 100%;
       }
       margin-right: 5px;
+      @media @mobile {
+        margin-right: 0;
+      }
     }
     .icon-label {
       font-size: 14px;
