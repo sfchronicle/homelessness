@@ -17,7 +17,7 @@ var map = L.map('complaints-map');
 // Disable drag and zoom handlers.
 // map.dragging.disable();
 // map.touchZoom.disable();
-map.doubleClickZoom.disable();
+// map.doubleClickZoom.disable();
 map.scrollWheelZoom.disable();
 map.keyboard.disable();
 
@@ -31,7 +31,7 @@ var greenIcon = new L.Icon({
 });
 
 var yellowIcon = new L.Icon({
-  iconUrl: '../assets/icons/marker-icon-2x-yellow.png',
+  iconUrl: '../assets/icons/marker-icon-2x-grey.png?',
   shadowUrl: '../assets/icons/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
@@ -56,7 +56,7 @@ L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x
 if (screen.width <= 480) {
   map.setView(new L.LatLng(37.75, -122.43), 11);
 } else {
-  map.setView(new L.LatLng(37.77, -122.44), 13);
+  map.setView(new L.LatLng(37.77, -122.44), 12);
 }
 
 var count = 0;
@@ -73,9 +73,9 @@ var getFile = function(markers,index) {
   return new Promise(function(ok, fail) {
     var fname = "http://extras.sfgate.com/editorial/election2016/homeless-data/encampments-data-cleaned/data201"+index+".csv";
     d3.csv(fname, function(data) {
-      data.forEach(function(d) {
-        d.LatLng = new L.LatLng(d.Latitude, d.Longitude);
-      });
+      // data.forEach(function(d) {
+      //   d.LatLng = new L.LatLng(d.Latitude, d.Longitude);
+      // });
       data.forEach(function(d) {
         d.LatLng = new L.LatLng(d.Latitude, d.Longitude);
         // console.log(d);
@@ -89,45 +89,49 @@ var getFile = function(markers,index) {
         if (d.Latitude < 0) {
           console.log("problem");
         }
-        marker.bindPopup(d.Address+": "+d.CategoryGroup+" on "+d.Closed);
+        marker.bindPopup(d.Address+": "+d.CategoryGroup+" reported on "+d.Opened);
         markers.addLayer(marker);
         count++;
       });
       map.addLayer(markers);
+      if (index != 6) {
+        map.removeLayer(markers);
+        // setTimeout(() => map.removeLayer(markers), 300);
+      }
       ok(data);
     })
   })
 
 };
 
-var fullDataSet = [];
-var getDataFile = function(index) {
-  return new Promise(function(ok, fail) {
-    var fname = "http://extras.sfgate.com/editorial/election2016/homeless-data/encampments-311-data/data_311_201"+index.toString()+".csv";
-    d3.csv(fname, function(data) {
-      data.forEach(function(d) {
-        d.LatLng = new L.LatLng(d.Latitude, d.Longitude);
-      });
-      fullDataSet.push.apply(fullDataSet, data);
-      ok("success");
-    });
-  });
-}
+// var fullDataSet = [];
+// var getDataFile = function(index) {
+//   return new Promise(function(ok, fail) {
+//     var fname = "http://extras.sfgate.com/editorial/election2016/homeless-data/encampments-311-data/data_311_201"+index.toString()+".csv";
+//     d3.csv(fname, function(data) {
+//       data.forEach(function(d) {
+//         d.LatLng = new L.LatLng(d.Latitude, d.Longitude);
+//       });
+//       fullDataSet.push.apply(fullDataSet, data);
+//       ok("success");
+//     });
+//   });
+// }
 
-var drawData = function() {
-
-  var markers = L.markerClusterGroup();
-  fullDataSet.forEach(function(d) {
-    d.LatLng = new L.LatLng(d.Latitude, d.Longitude);
-    var marker = L.marker(new L.LatLng(d.Latitude, d.Longitude),{icon: greenIcon});
-    marker.bindPopup(d.Address+": "+d.CategoryGroup+" on "+d.Closed);
-    markers.addLayer(marker);
-    count++;
-  });
-  map.addLayer(markers);
-  // console.log(requests);
-
-}
+// var drawData = function() {
+//
+//   var markers = L.markerClusterGroup();
+//   fullDataSet.forEach(function(d) {
+//     d.LatLng = new L.LatLng(d.Latitude, d.Longitude);
+//     var marker = L.marker(new L.LatLng(d.Latitude, d.Longitude),{icon: greenIcon});
+//     marker.bindPopup(d.Address+": "+d.CategoryGroup+" on "+d.Closed);
+//     markers.addLayer(marker);
+//     count++;
+//   });
+//   map.addLayer(markers);
+//   // console.log(requests);
+//
+// }
 
 // OPTION: LOAD ALL DATA THEN PLOT
 
@@ -146,7 +150,7 @@ var drawData = function() {
 // });
 
 // OPTION: LOAD DATA ONE AT A TIME
-getFile(markers2011,"1").then(()=>getFile(markers2012,"2")).then(()=>getFile(markers2013,"3")).then(()=>getFile(markers2014,"4")).then(()=>getFile(markers2015,"5")).then(()=>getFile(markers2016,"6"));
+getFile(markers2016,"6").then(()=>getFile(markers2015,"5")).then(()=>getFile(markers2014,"4")).then(()=>getFile(markers2013,"3")).then(()=>getFile(markers2012,"2")).then(()=>getFile(markers2011,"1"));
 
 var yearSelect = document.querySelector('select');
 yearSelect.selectedIndex = 5;

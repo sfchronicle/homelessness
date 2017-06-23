@@ -1,4 +1,46 @@
+@heatmap-color: #FF7F5C;//lighten(#FF6542,10%);//#FFB83F;//#Ec1c24;
+
 .jackie-encampment {
+
+  .instructions {
+    font-family: @block-graphics;
+    font-size: 14px;
+    text-align: center;
+    padding-bottom: 20px;
+    .fa {
+      padding-right: 5px;
+    }
+    &.desktop {
+      @media @mobile {
+        display: none;
+      }
+    }
+    &.mobile {
+      display: none;
+      @media @mobile {
+        display: block;
+      }
+    }
+  }
+
+  .marker-cluster-large {
+    background-color: darken(@heatmap-color,0%);
+  }
+  .marker-cluster-large div {
+    background-color: darken(@heatmap-color,10%);
+  }
+  .marker-cluster-medium {
+    background-color: lighten(@heatmap-color,15%);
+  }
+  .marker-cluster-medium div {
+    background-color: @heatmap-color;
+  }
+  .marker-cluster-small {
+    background-color: lighten(@heatmap-color,20%);
+  }
+  .marker-cluster-small div {
+    background-color: lighten(@heatmap-color,15%);
+  }
 
   .credit {
     padding-top: 20px;
