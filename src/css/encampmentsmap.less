@@ -1,9 +1,35 @@
 @heatmap-color: #FF7F5C;//lighten(#FF6542,10%);//#FFB83F;//#Ec1c24;
 
+.logo-header {
+  padding-top: 50px;
+  max-width: 200px;
+  margin: auto;
+  img {
+    width: 100%;
+    background: white;
+    padding: 0 10px;
+  }
+  @media @mobile {
+    padding-top: 30px;
+  }
+}
+.divider-logo {
+  width: 80%;
+  border-bottom: 1px solid @dark-gray;
+  margin: auto;
+  margin-top: -20px;
+  @media @mobile {
+    margin-top: -18px;
+  }
+}
+
 .jackie-encampment {
 
   .hed {
     font-family: @med-graphics;
+    @media @mobile {
+      padding-top: 30px;
+    }
     // font-family: @body-bold;
   }
   // .chatter {
